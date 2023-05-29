@@ -14,20 +14,20 @@ TuRent community is a web based application that tries to solve the problem of h
 - [Authors](#Authors)
 - [License](#License)
 
-## Environment <a name="Environment"></a>
+## Environment
 
-## Installation <a name="Installation"></a>
+## Installation
 
-## Infrastracture <a name="Infrastracture"></a>
+## Infrastracture
 
-## Featured Files <a name="Featured_files"></a>
+## Featured Files
 
-## Example of Use <a name="Example_of_use"></a>
+## Example of Use
 
-## Bugs <a name="Bugs"></a>
+## Bugs
 No Known bugs so far.
 
-## Authors <a name="Authors"></a>
+## Authors
 Bravin Atonya [Github](https://github.com/atonya-bravin), [LinkedIn](https://www.linkedin.com/in/bravin-atonya-71048425a/)  
 Myra Jarenga [Github](https://github.com/myrajarenga), [LinkedIn](https://www.linkedin.com/in/myra-jarenga/)  
 Laban Kibet [Github](https://github.com/Laban254), [LinkedIn](https://www.linkedin.com/in/laban-rotich/)  
