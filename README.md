@@ -32,5 +32,5 @@ Bravin Atonya [Github](https://github.com/atonya-bravin), [LinkedIn](https://www
 Myra Jarenga [Github](https://github.com/myrajarenga), [LinkedIn](https://www.linkedin.com/in/myra-jarenga/)
 Laban Kibet [Github](https://github.com/Laban254), [LinkedIn](https://www.linkedin.com/in/laban-rotich/)
 
-##License <a name="License"></a>
+##License
 Public Domain. No copy write protection.
