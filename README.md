@@ -28,9 +28,9 @@ TuRent community is a web based application that tries to solve the problem of h
 No Known bugs so far.
 
 ## Authors <a name="Authors"></a>
-Bravin Atonya [Github](https://github.com/atonya-bravin), [LinkedIn](https://www.linkedin.com/in/bravin-atonya-71048425a/)
-Myra Jarenga [Github](https://github.com/myrajarenga), [LinkedIn](https://www.linkedin.com/in/myra-jarenga/)
-Laban Kibet [Github](https://github.com/Laban254), [LinkedIn](https://www.linkedin.com/in/laban-rotich/)
+Bravin Atonya [Github](https://github.com/atonya-bravin), [LinkedIn](https://www.linkedin.com/in/bravin-atonya-71048425a/)  
+Myra Jarenga [Github](https://github.com/myrajarenga), [LinkedIn](https://www.linkedin.com/in/myra-jarenga/)  
+Laban Kibet [Github](https://github.com/Laban254), [LinkedIn](https://www.linkedin.com/in/laban-rotich/)  
 
-##License
+## License
 Public Domain. No copy write protection.
