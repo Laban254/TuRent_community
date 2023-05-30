@@ -1,3 +1,4 @@
+![TuRent Logo](https://github.com/myrajarenga/TuRent_community/blob/master/logo-02-02.png)
 # TuRent Community
 TuRent community is a web based application that tries to solve the problem of house screening by tenants and house advertisment by landlords. What the application does to make sure this is accomplished, is that it;
 1. Creates a platform for landlords to advertise their houses.
