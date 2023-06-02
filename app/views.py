@@ -64,3 +64,18 @@ def add_tenant(plot_id):
     
     houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
     return render_template('add_tenant.html', houses=houses)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password1 = request.form['password']
+        
+        plot = db_session.query(PlotInformation).filter_by(email=email).first()
+        if plot and plot.password1 == password1:
+            session['plot_id'] = plot.id
+            return 'Login successful!'
+        else:
+            return 'Invalid email or password!'
+    
+    return render_template('login.html')
