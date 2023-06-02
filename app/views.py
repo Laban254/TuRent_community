@@ -40,3 +40,27 @@ def plot_info(plot_id):
         return render_template('plot_info.html', plot=plot, houses=houses)
     else:
         return 'Plot not found!'
+    
+@app.route('/add_tenant/<int:plot_id>', methods=['GET', 'POST'])
+def add_tenant(plot_id):
+    if request.method == 'POST':
+        name = request.form['name']
+        phone_number = request.form['phone_number']
+        email = request.form['email']
+        house_id = request.form['house_id']
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password)
+        
+        tenant = TenantInformation(name=name, phone_number=phone_number, email=email, house_id=house_id)
+        db_session.add(tenant)
+        db_session.commit()
+
+        tenant_login = TenantLoginDetails(tenant_id=tenant.id, username=username, password=hashed_password)
+        db_session.add(tenant_login)
+        db_session.commit()
+
+        return 'Tenant added successfully!'
+    
+    houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
+    return render_template('add_tenant.html', houses=houses)
