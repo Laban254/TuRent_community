@@ -79,3 +79,28 @@ def login():
             return 'Invalid email or password!'
     
     return render_template('login.html')
+
+@app.route('/plot_info/<int:plot_id>', methods=['GET', 'POST'])
+def plot_details(plot_id):
+    if request.method == 'POST':
+        phone_number = request.form['phone_number']
+        house_number = request.form['house_number']
+        rental_price = float(request.form['rental_price'])
+        rooms_available = int(request.form['rooms_available'])
+        images_location = request.form['images_location']
+        description = request.form['description']
+        
+        house = HouseInformation(plot_id=plot_id, phone_number=phone_number,
+                                 house_number=house_number, rental_price=rental_price,
+                                 rooms_available=rooms_available, images_location=images_location,
+                                 description=description)
+        
+        db_session.add(house)
+        db_session.commit()
+        
+        return redirect(f'/plot_info/{plot_id}')
+    
+    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
+    houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
+    
+    return render_template('plot_info.html', plot=plot, houses=houses)
