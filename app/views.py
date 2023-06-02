@@ -104,3 +104,33 @@ def plot_details(plot_id):
     houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
     
     return render_template('plot_info.html', plot=plot, houses=houses)
+
+
+@app.route('/delete_plot/<int:plot_id>', methods=['POST'])
+def delete_plot(plot_id):
+    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
+    if plot:
+        db_session.delete(plot)
+        db_session.commit()
+        return 'Plot deleted successfully!'
+    else:
+        return 'Plot not found!'
+
+
+@app.route('/edit_plot/<int:plot_id>', methods=['GET', 'POST'])
+def edit_plot(plot_id):
+    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
+    if plot:
+        if request.method == 'POST':
+            plot.plot_number = request.form['plot_number']
+            plot.phone_number = request.form['phone_number']
+            plot.total_houses = request.form['total_houses']
+            plot.email = request.form['email']
+            plot.location = request.form['location']
+            plot.password1 = request.form['password1']
+            db_session.commit()
+            return 'Plot updated successfully!'
+        else:
+            return render_template('edit_plot.html', plot=plot)
+    else:
+        return 'Plot not found!'
