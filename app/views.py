@@ -1,9 +1,9 @@
 from app import app
-from flask import Flask, render_template, request, redirect, session
+from flask import render_template, request, redirect, session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from werkzeug.security import generate_password_hash
-from models import Base, PlotInformation, HouseInformation, TenantInformation, Reviews, LoginDetails, TenantLoginDetails
+from .models import Base, PlotInformation, HouseInformation, TenantInformation, Reviews, LoginDetails, TenantLoginDetails
 
 app.secret_key = 'your_secret_key'  # Set a secret key for session management
 engine = create_engine('sqlite:///turent.db')  # SQLite database file
