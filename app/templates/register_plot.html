@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Plot registration</title>
 </head>
 <body>
-    <h1>Landlord Registration</h1>
+    <h1>Plot registraton</h1>
     <form method="POST" action="{{ url_for('register_landlord') }}">
         <label for="plot_number">Plot Number:</label>
         <input type="text" name="plot_number" required><br>
@@ -19,6 +19,9 @@
         <input type="number" name="total_houses" required><br>
         <label for="location">Location:</label>
         <input type="text" name="location" required><br>
+        <label for="password1">Password:</label>
+        <input type="text" id="password1" name="password1" required><br><br>
+
         <input type="submit" value="Register">
     </form>
 

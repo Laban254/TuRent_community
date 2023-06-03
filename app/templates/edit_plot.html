@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Plot Information</title>
+</head>
+<body>
+    <h1>Edit Plot Information</h1>
+    <form method="post" action="/edit_plot/{{ plot.id }}">
+        <label for="plot_number">Plot Number:</label>
+        <input type="text" name="plot_number" value="{{ plot.plot_number }}" required><br>
+        
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" name="phone_number" value="{{ plot.phone_number }}" required><br>
+        
+        <label for="total_houses">Total Houses:</label>
+        <input type="number" name="total_houses" value="{{ plot.total_houses }}" required><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{ plot.email }}" required><br>
+        
+        <label for="location">Location:</label>
+        <input type="text" name="location" value="{{ plot.location }}" required><br>
+        
+        <label for="password1">Password:</label>
+        <input type="password" name="password1" value="{{ plot.password1 }}" required><br>
+        
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>

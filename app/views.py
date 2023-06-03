@@ -115,6 +115,7 @@ def delete_plot(plot_id):
         return 'Plot deleted successfully!'
     else:
         return 'Plot not found!'
+    # reirect to be added return remder_template(delete_plot.html)
 
 
 @app.route('/edit_plot/<int:plot_id>', methods=['GET', 'POST'])
