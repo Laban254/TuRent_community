@@ -225,7 +225,41 @@ def add_house_info(plot_id):
     return render_template('add_house_info.html', plot=plot, houses=houses)
 
 
+@app.route('/edit_house/<int:house_id>', methods=['GET', 'POST'])
+def edit_house(house_id):
+    house = db_session.query(HouseInformation).filter_by(id=house_id).first()
+    if house:
+        if request.method == 'POST':
+            # Update the attributes of the house object with form data
+            house.phone_number = request.form['phone_number']
+            house.house_number = request.form['house_number']
+            house.rental_price = float(request.form['rental_price'])
+            house.rooms_available = int(request.form['rooms_available'])
+            house.images_location = request.form['images_location']
+            house.description = request.form['description']
 
+            db_session.commit()  # Persist the changes in the database
+
+            return 'House information updated successfully!'
+        else:
+            return render_template('edit_house.html', house=house)
+    else:
+        return 'House not found!'
+
+
+
+@app.route('/delete_house/<int:house_id>', methods=['POST'])
+def delete_house(house_id):
+    house = db_session.query(HouseInformation).filter_by(id=house_id).first()
+    if house:
+        # Delete the house
+        db_session.delete(house)
+        db_session.commit()
+        flash('House deleted successfully!')
+    else:
+        flash('House not found!')
+    
+    return redirect(url_for('plot_info', plot_id=house.plot_id))
 
 
 
