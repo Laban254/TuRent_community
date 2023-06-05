@@ -115,6 +115,37 @@ def add_tenant(plot_id):
 
 
 
+@app.route('/edit_tenant/<int:tenant_id>', methods=['GET', 'POST'])
+def edit_tenant(tenant_id):
+    tenant = db_session.query(TenantInformation).filter_by(id=tenant_id).first()
+    if tenant:
+        if request.method == 'POST':
+            # Get updated tenant information from the form
+            name = request.form['name']
+            phone_number = request.form['phone_number']
+            email = request.form['email']
+            house_id = request.form['house_id']
+
+            # Check if the house exists
+            house = db_session.query(HouseInformation).filter_by(id=house_id).first()
+            if house:
+                # Update the tenant information
+                tenant.name = name
+                tenant.phone_number = phone_number
+                tenant.email = email
+                tenant.house_id = house_id
+                db_session.commit()
+                return 'Tenant information updated successfully!'
+            else:
+                return 'House not found!'
+        else:
+            houses = db_session.query(HouseInformation).filter_by(plot_id=tenant.house_id).all()
+            return render_template('edit_tenant.html', tenant=tenant, houses=houses)
+    else:
+        return 'Tenant not found!'
+    
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
