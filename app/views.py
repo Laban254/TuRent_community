@@ -89,26 +89,30 @@ def delete_plot(plot_id):
 @app.route('/add_tenant/<int:plot_id>', methods=['GET', 'POST'])
 def add_tenant(plot_id):
     if request.method == 'POST':
+        # Get tenant information from the form
         name = request.form['name']
         phone_number = request.form['phone_number']
-        email = request.form['email']
         house_id = request.form['house_id']
+        email = request.form['email']
         username = request.form['username']
         password = request.form['password']
         hashed_password = generate_password_hash(password)
-        
-        tenant = TenantInformation(name=name, phone_number=phone_number, email=email, house_id=house_id)
+
+        # Create a new TenantInformation object
+        tenant = TenantInformation(name=name, phone_number=phone_number,  house_id=house_id, email=email)
         db_session.add(tenant)
         db_session.commit()
 
-        tenant_login = TenantLoginDetails(tenant_id=tenant.id, username=username, password=hashed_password)
+        # Create a new TenantLoginDetails object
+        tenant_login = TenantLoginDetails(tenant_id=tenant.id,  username=username, password=hashed_password)
         db_session.add(tenant_login)
         db_session.commit()
 
         return 'Tenant added successfully!'
-    
+
     houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
     return render_template('add_tenant.html', houses=houses)
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
