@@ -192,42 +192,42 @@ def login():
 
 
 
-@app.route('/plot_info/<int:plot_id>', methods=['GET', 'POST'])
-def plot_details(plot_id):
+@app.route('/add_house_info/<int:plot_id>', methods=['GET', 'POST'])
+def add_house_info(plot_id):
+    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
+
+    if not plot:
+        flash('Plot does not exist!')
+        return redirect('/')
+
     if request.method == 'POST':
+        # Get house information from the form
         phone_number = request.form['phone_number']
         house_number = request.form['house_number']
         rental_price = float(request.form['rental_price'])
         rooms_available = int(request.form['rooms_available'])
         images_location = request.form['images_location']
         description = request.form['description']
-        
+
+        # Create a new HouseInformation object
         house = HouseInformation(plot_id=plot_id, phone_number=phone_number,
                                  house_number=house_number, rental_price=rental_price,
                                  rooms_available=rooms_available, images_location=images_location,
                                  description=description)
-        
+
         db_session.add(house)
         db_session.commit()
-        
-        return redirect(f'/plot_info/{plot_id}')
-    
-    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
+
+        return "added suscessfully"
+
     houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
-    
-    return render_template('plot_info.html', plot=plot, houses=houses)
+
+    return render_template('add_house_info.html', plot=plot, houses=houses)
 
 
-@app.route('/delete_plot/<int:plot_id>', methods=['POST'])
-def delete_plot(plot_id):
-    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
-    if plot:
-        db_session.delete(plot)
-        db_session.commit()
-        return 'Plot deleted successfully!'
-    else:
-        return 'Plot not found!'
-    # reirect to be added return remder_template(delete_plot.html)
+
+
+
 
 
 
