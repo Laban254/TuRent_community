@@ -64,7 +64,7 @@ def edit_plot(plot_id):
     else:
         return 'Plot not found!'
     
-
+# delete plot
 @app.route('/delete_plot/<int:plot_id>', methods=['GET', 'POST'])
 def delete_plot(plot_id):
     plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
