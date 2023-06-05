@@ -40,6 +40,7 @@ def plot_info(plot_id):
         return render_template('plot_info.html', plot=plot, houses=houses)
     else:
         return 'Plot not found!'
+
     
 @app.route('/add_tenant/<int:plot_id>', methods=['GET', 'POST'])
 def add_tenant(plot_id):
@@ -65,12 +66,13 @@ def add_tenant(plot_id):
     houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
     return render_template('add_tenant.html', houses=houses)
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password1 = request.form['password']
-        
+
         plot = db_session.query(PlotInformation).filter_by(email=email).first()
         if plot and plot.password1 == password1:
             session['plot_id'] = plot.id
@@ -79,6 +81,8 @@ def login():
             return 'Invalid email or password!'
     
     return render_template('login.html')
+
+
 
 @app.route('/plot_info/<int:plot_id>', methods=['GET', 'POST'])
 def plot_details(plot_id):
