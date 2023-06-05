@@ -145,6 +145,25 @@ def edit_tenant(tenant_id):
         return 'Tenant not found!'
     
 
+@app.route('/delete_tenant/<int:tenant_id>', methods=['GET', 'POST'])
+def delete_tenant(tenant_id):
+    tenant = db_session.query(TenantInformation).filter_by(id=tenant_id).first()
+    if tenant:
+        # Delete the tenant's login details
+        tenant_login = db_session.query(TenantLoginDetails).filter_by(tenant_id=tenant_id).first()
+        if tenant_login:
+            db_session.delete(tenant_login)
+
+        # Delete the tenant
+        db_session.delete(tenant)
+        db_session.commit()
+        
+        return 'Tenant and login details deleted successfully!'
+    else:
+        return 'Tenant not found!'
+
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
