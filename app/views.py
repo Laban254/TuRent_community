@@ -1,15 +1,17 @@
 from app import app
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, flash
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from werkzeug.security import generate_password_hash
+from sqlalchemy.orm import sessionmaker, scoped_session
+from werkzeug.security import generate_password_hash, check_password_hash
 from .models import Base, PlotInformation, HouseInformation, TenantInformation, Reviews, LoginDetails, TenantLoginDetails
 
-app.secret_key = 'your_secret_key'  # Set a secret key for session management
-engine = create_engine('sqlite:///turent.db')  # SQLite database file
-Base.metadata.create_all(engine)  # Create the tables based on the models
-Session = sessionmaker(bind=engine)
-db_session = Session()
+# Set a secret key for session management
+app.secret_key = 'your_secret_key'
+
+# Create SQLite database engine and bind it to the session using a connection pool
+engine = create_engine('sqlite:///turent.db')
+Session = scoped_session(sessionmaker(bind=engine))
+db_session = Session
 
 #registering the plot
 @app.route('/register_plot', methods=['GET', 'POST'])
@@ -31,6 +33,26 @@ def register_plot():
         return 'Plot registered successfully!'
     
     return render_template('register_plot.html')
+
+
+@app.route('/edit_plot/<int:plot_id>', methods=['GET', 'POST'])
+def edit_plot(plot_id):
+    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
+    if plot:
+        if request.method == 'POST':
+            plot.plot_number = request.form['plot_number']
+            plot.phone_number = request.form['phone_number']
+            plot.total_houses = request.form['total_houses']
+            plot.email = request.form['email']
+            plot.location = request.form['location']
+            plot.password1 = request.form['password1']
+            db_session.commit()
+            return 'Plot updated successfully!'
+        else:
+            return render_template('edit_plot.html', plot=plot)
+    else:
+        return 'Plot not found!'
+    
 
 @app.route('/plot_info/<int:plot_id>')
 def plot_info(plot_id):
@@ -122,20 +144,4 @@ def delete_plot(plot_id):
     # reirect to be added return remder_template(delete_plot.html)
 
 
-@app.route('/edit_plot/<int:plot_id>', methods=['GET', 'POST'])
-def edit_plot(plot_id):
-    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
-    if plot:
-        if request.method == 'POST':
-            plot.plot_number = request.form['plot_number']
-            plot.phone_number = request.form['phone_number']
-            plot.total_houses = request.form['total_houses']
-            plot.email = request.form['email']
-            plot.location = request.form['location']
-            plot.password1 = request.form['password1']
-            db_session.commit()
-            return 'Plot updated successfully!'
-        else:
-            return render_template('edit_plot.html', plot=plot)
-    else:
-        return 'Plot not found!'
+
