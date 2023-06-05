@@ -168,16 +168,26 @@ def delete_tenant(tenant_id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        # Get login information from the form
         email = request.form['email']
-        password1 = request.form['password']
+        password = request.form['password']
 
-        plot = db_session.query(PlotInformation).filter_by(email=email).first()
-        if plot and plot.password1 == password1:
-            session['plot_id'] = plot.id
-            return 'Login successful!'
-        else:
-            return 'Invalid email or password!'
-    
+        # Check if the login credentials belong to a landlord
+        landlord = db_session.query(PlotInformation).filter_by(email=email).first()
+        if landlord and check_password_hash(landlord.password1, password):
+            session['plot_id'] = landlord.id
+            return 'Login successful as landlord!'
+
+        # Check if the login credentials belong to a tenant
+        tenant_login = db_session.query(TenantLoginDetails).filter_by(username=email).first()
+        if tenant_login and check_password_hash(tenant_login.password, password):
+            session['tenant_id'] = tenant_login.tenant_id
+            return 'Login successful as tenant!'
+
+
+        flash('Invalid email or password!')
+        return redirect('/login')
+
     return render_template('login.html')
 
 
