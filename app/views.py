@@ -303,3 +303,16 @@ def tenant_review(plot_id):
         return 'Tenant review submitted successfully!'
 
     return render_template('tenant_review.html', plot_id=plot_id)
+
+
+@app.route('/view_database')
+def view_database():
+    plots = db_session.query(PlotInformation).all()
+    houses = db_session.query(HouseInformation).all()
+    tenants = db_session.query(TenantInformation).all()
+    reviews = db_session.query(Reviews).all()
+    logins = db_session.query(LoginDetails).all()
+    tenant_logins = db_session.query(TenantLoginDetails).all()
+
+    return render_template('view_database.html', plots=plots, houses=houses, tenants=tenants,
+                           reviews=reviews, logins=logins, tenant_logins=tenant_logins)
