@@ -17,21 +17,31 @@ db_session = Session
 @app.route('/register_plot', methods=['GET', 'POST'])
 def register_plot():
     if request.method == 'POST':
+        # Get plot information from the form
         plot_number = request.form['plot_number']
         phone_number = request.form['phone_number']
         total_houses = request.form['total_houses']
         email = request.form['email']
         location = request.form['location']
         password1 = request.form['password1']
-        
+        hashed_password = generate_password_hash(password1)
+
+        # Check if a plot with the given plot_number already exists
+        existing_plot = db_session.query(PlotInformation).filter_by(plot_number=plot_number).first()
+        if existing_plot:
+            flash('Plot already exists!')
+            return redirect('/register_plot')
+
+        # Create a new PlotInformation object
         plot = PlotInformation(plot_number=plot_number, phone_number=phone_number,
-                               total_houses=total_houses, email=email, location=location, password1=password1)
-        
+                               total_houses=total_houses, email=email, location=location, password1=hashed_password)
+
+        # Add the plot to the session and commit the changes
         db_session.add(plot)
         db_session.commit()
-        
+
         return 'Plot registered successfully!'
-    
+
     return render_template('register_plot.html')
 
 
@@ -40,6 +50,7 @@ def edit_plot(plot_id):
     plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
     if plot:
         if request.method == 'POST':
+            # Get updated plot information from the form
             plot.plot_number = request.form['plot_number']
             plot.phone_number = request.form['phone_number']
             plot.total_houses = request.form['total_houses']
