@@ -65,12 +65,13 @@ def edit_plot(plot_id):
         return 'Plot not found!'
     
 
-@app.route('/plot_info/<int:plot_id>')
-def plot_info(plot_id):
+@app.route('/delete_plot/<int:plot_id>', methods=['GET', 'POST'])
+def delete_plot(plot_id):
     plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
     if plot:
-        houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
-        return render_template('plot_info.html', plot=plot, houses=houses)
+        db_session.delete(plot)
+        db_session.commit()
+        return 'Plot deleted successfully!'
     else:
         return 'Plot not found!'
 
