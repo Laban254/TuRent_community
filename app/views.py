@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, session, flash
+from flask import render_template, request, redirect, session, flash, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -221,7 +221,6 @@ def add_house_info(plot_id):
         return "added suscessfully"
 
     houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
-
     return render_template('add_house_info.html', plot=plot, houses=houses)
 
 
@@ -264,4 +263,43 @@ def delete_house(house_id):
 
 
 
+# Add a route for the landlord to review the tenant
+@app.route('/landlord_review/<int:tenant_id>', methods=['GET', 'POST'])
+def landlord_review(tenant_id):
+    if request.method == 'POST':
+        # Get review information from the form
+        user_id = session.get('landlord_id')  # Assuming you have a logged-in landlord
+        star_ratings = int(request.form['star_ratings'])
+        comments = request.form['comments']
 
+        # Create a new Reviews object
+        review = Reviews(user_id=user_id, tenant_id=tenant_id, star_ratings=star_ratings, comments=comments)
+
+        # Add the review to the session and commit the changes
+        db_session.add(review)
+        db_session.commit()
+
+        return 'Landlord review submitted successfully!'
+
+    return render_template('landlord_review.html', tenant_id=tenant_id)
+
+
+# Add a route for the tenant to review the landlord
+@app.route('/tenant_review/<int:plot_id>', methods=['GET', 'POST'])
+def tenant_review(plot_id):
+    if request.method == 'POST':
+        # Get review information from the form
+        user_id = session.get('tenant_id')  # Assuming you have a logged-in tenant
+        star_ratings = int(request.form['star_ratings'])
+        comments = request.form['comments']
+
+        # Create a new Reviews object
+        review = Reviews(user_id=user_id, plot_id=plot_id, star_ratings=star_ratings, comments=comments)
+
+        # Add the review to the session and commit the changes
+        db_session.add(review)
+        db_session.commit()
+
+        return 'Tenant review submitted successfully!'
+
+    return render_template('tenant_review.html', plot_id=plot_id)
