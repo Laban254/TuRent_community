@@ -64,6 +64,16 @@ def edit_plot(plot_id):
     else:
         return 'Plot not found!'
     
+@app.route('/plot_info/<int:plot_id>')
+def plot_info(plot_id):
+    # Retrieve plot information from the database based on the plot_id
+    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
+    if plot:
+        houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
+        return render_template('plot_info.html', plot=plot, houses=houses)
+    else:
+        return 'Plot not found!'
+    
 # delete plot
 @app.route('/delete_plot/<int:plot_id>', methods=['GET', 'POST'])
 def delete_plot(plot_id):
