@@ -31,6 +31,48 @@ def load_user(user_id):
     # Load the user object from the database based on the user ID
     return db_session.query(PlotInformation).get(user_id)
 
+@app.route("/home")
+# @login_required
+def home():
+    print("Current user:", current_user)  # Print the current user for debugging purposes
+
+    if 'plot_id' in session:
+        print("Logged in as landlord. Plot ID:", session['plot_id'])
+        return render_template('home.html', user_type='landlord')
+    elif 'tenant_id' in session:
+        print("Logged in as tenant. Tenant ID:", session['tenant_id'])
+        return render_template('home.html', user_type='tenant')
+    else:
+        print("User is not properly authenticated. Redirecting to login page.")
+        return redirect('/login')
+    
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # Get login information from the form
+        email = request.form['email']
+        password = request.form['password']
+
+        # Check if the login credentials belong to a landlord
+        landlord = db_session.query(PlotInformation).filter_by(email=email).first()
+        if landlord and check_password_hash(landlord.password1, password):
+            session['plot_id'] = landlord.id
+            flash('Login successful as landlord!')
+            return redirect(url_for('home'))  # Redirect to the home page
+
+        # Check if the login credentials belong to a tenant
+        tenant_login = db_session.query(TenantLoginDetails).filter_by(username=email).first()
+        if tenant_login and check_password_hash(tenant_login.password, password):
+            session['tenant_id'] = tenant_login.tenant_id
+            flash('Login successful as tenant!')
+            return redirect(url_for('home'))  # Redirect to the home page
+
+        flash('Invalid email or password!')
+        return redirect('/login')
+
+    return render_template('login.html')
+
+
 #registering the plot
 @app.route('/register_plot', methods=['GET', 'POST'])
 def register_plot():
