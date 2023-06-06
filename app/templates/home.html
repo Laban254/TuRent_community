@@ -1,0 +1,134 @@
+{%extends  "templates/base.html" %}
+
+{% block title%}  About {% endblock%}
+
+{% block main %}
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .row {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .col {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .col:first-child {
+            flex-basis: 50%;
+        }
+
+        .col:last-child {
+            flex-basis: 50%;
+        }
+
+        .col label {
+            font-weight: bold;
+        }
+
+        .col input[type="text"],
+        .col input[type="number"],
+        .col input[type="radio"],
+        .col input[type="radio"] + label {
+            width: 100%;
+        }
+
+        .col .rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .col .rating input[type="radio"] {
+            display: none;
+        }
+
+        .col .rating label {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+            margin: 0 3px; /* Adjust the margin here */
+        }
+
+        .col .rating input[type="radio"]:checked + label {
+            color: orange;
+        }
+
+        .col .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .col .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form method="post" action="/your-post-url">
+                    <label for="rental_price">House Rent:</label><br>
+                    <input type="number" name="rental_price" required><br><br>
+                
+                    <label for="rooms_available">Number Of Bedrooms:</label><br>
+                    <input type="number" name="rooms_available" required><br><br>
+                
+                    <label for="rating">Rating:</label><br>
+                    <div class="rating">
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5">&#9733;</label>
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4">&#9733;</label>
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3">&#9733;</label>
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2">&#9733;</label>
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1">&#9733;</label>
+                    </div>
+                
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            
+            <div class="col">
+                <div class="image-container">
+                    <img src="/static/img/test.PNG" alt="Image">
+                </div>
+                <div class="text-center">
+                    <form method="get" action="/your-get-url">
+                        <label for="phone_number">Phone Number:</label><br>
+                        <input type="text" name="phone_number" required><br><br>
+                
+                        <label for="images_location">Images Location:</label><br>
+                        <input type="text" name="images_location" required><br><br>
+                
+                        <input type="submit" value="Submit">
+
+                        {{user}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
+

@@ -32,7 +32,7 @@ def load_user(user_id):
     return db_session.query(PlotInformation).get(user_id)
 
 @app.route("/home")
-# @login_required
+@login_required
 def home():
     print("Current user:", current_user)  # Print the current user for debugging purposes
 
@@ -58,6 +58,7 @@ def login():
         if landlord and check_password_hash(landlord.password1, password):
             session['plot_id'] = landlord.id
             flash('Login successful as landlord!')
+            login_user(landlord)  # Log in the landlord user
             return redirect(url_for('home'))  # Redirect to the home page
 
         # Check if the login credentials belong to a tenant
@@ -65,6 +66,7 @@ def login():
         if tenant_login and check_password_hash(tenant_login.password, password):
             session['tenant_id'] = tenant_login.tenant_id
             flash('Login successful as tenant!')
+            login_user(tenant_login)  # Log in the tenant user
             return redirect(url_for('home'))  # Redirect to the home page
 
         flash('Invalid email or password!')

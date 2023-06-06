@@ -2,6 +2,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from flask_login import UserMixin
 
 Base = declarative_base()
 
@@ -14,6 +15,18 @@ class PlotInformation(Base):
     email = Column(String(100), nullable=False)
     location = Column(String(100), nullable=False)
     password1 = Column(String(100), nullable=False)
+
+    def is_authenticated(self):
+        return True  
+
+    def is_active(self):
+        return True  
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
 
 class HouseInformation(Base):
     __tablename__ = 'house_information'
