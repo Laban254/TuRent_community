@@ -4,14 +4,32 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import Base, PlotInformation, HouseInformation, TenantInformation, Reviews, LoginDetails, TenantLoginDetails
+from flask_login import login_required,  LoginManager
+
 
 # Set a secret key for session management
 app.secret_key = 'your_secret_key'
+
+
+# Flask-Login initialization
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+# Configuration for  the login view
+login_manager.login_view = 'login'
 
 # Create SQLite database engine and bind it to the session using a connection pool
 engine = create_engine('sqlite:///turent.db')
 Session = scoped_session(sessionmaker(bind=engine))
 db_session = Session
+
+
+# user loader function
+@login_manager.user_loader
+def load_user(user_id):
+    # Load the user object from the database based on the user ID
+    return db_session.query(PlotInformation).get(user_id)
 
 #registering the plot
 @app.route('/register_plot', methods=['GET', 'POST'])
