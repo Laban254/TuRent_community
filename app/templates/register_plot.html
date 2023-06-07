@@ -8,6 +8,16 @@
 </head>
 <body>
     <h1>Plot registraton</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <h1>Plot registraton</h1>
     <form method="POST" action="{{ url_for('register_plot') }}">
         <label for="plot_number">Plot Number:</label>
         <input type="text" name="plot_number" required><br>

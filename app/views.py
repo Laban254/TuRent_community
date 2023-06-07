@@ -38,7 +38,7 @@ def home():
 
     if 'plot_id' in session:
         print("Logged in as landlord. Plot ID:", session['plot_id'])
-        return render_template('home.html', user_type='landlord')
+        return render_template('home.html', user_type='landlord', plot='plot')
     elif 'tenant_id' in session:
         print("Logged in as tenant. Tenant ID:", session['tenant_id'])
         return render_template('home.html', user_type='tenant')
@@ -65,6 +65,7 @@ def login():
         tenant_login = db_session.query(TenantLoginDetails).filter_by(username=email).first()
         if tenant_login and check_password_hash(tenant_login.password, password):
             session['tenant_id'] = tenant_login.tenant_id
+            session['plot_number'] = landlord.plot_number
             flash('Login successful as tenant!')
             login_user(tenant_login)  # Log in the tenant user
             return redirect(url_for('home'))  # Redirect to the home page
@@ -107,13 +108,18 @@ def register_plot():
     return render_template('register_plot.html')
 
 
-@app.route('/edit_plot/<int:plot_id>', methods=['GET', 'POST'])
-def edit_plot(plot_id):
-    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
+
+@app.route('/edit_plot', methods=['GET', 'POST'])
+@login_required
+def edit_plot():
+    if 'plot_number' not in session:
+        return 'User is not a landlord. Access denied!'
+
+    plot_number = session['plot_number']
+    plot = db_session.query(PlotInformation).filter_by(plot_number=plot_number).first()
     if plot:
         if request.method == 'POST':
             # Get updated plot information from the form
-            plot.plot_number = request.form['plot_number']
             plot.phone_number = request.form['phone_number']
             plot.total_houses = request.form['total_houses']
             plot.email = request.form['email']
@@ -122,10 +128,12 @@ def edit_plot(plot_id):
             db_session.commit()
             return 'Plot updated successfully!'
         else:
-            return render_template('edit_plot.html', plot=plot)
+            return render_template('home.html', plot=plot)
     else:
         return 'Plot not found!'
-    
+
+
+
 @app.route('/plot_info/<int:plot_id>')
 def plot_info(plot_id):
     # Retrieve plot information from the database based on the plot_id
