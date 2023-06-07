@@ -31,6 +31,11 @@ def load_user(user_id):
     # Load the user object from the database based on the user ID
     return db_session.query(PlotInformation).get(user_id)
 
+
+@app.route("turent-home")
+def turent_home():
+    return render_template("turent_home.html")
+
 @app.route("/home")
 @login_required
 def home():
