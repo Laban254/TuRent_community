@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tenant Review</title>
+    <style>
+        .rating {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: center;
+        }
+
+        .rating > input {
+            display: none;
+        }
+
+        .rating > label:before {
+            content: "\2605";
+            font-size: 30px;
+            display: inline-block;
+            width: 40px;
+            color: #FFB300;
+            cursor: pointer;
+        }
+
+        .rating > label {
+            color: #FFB300;
+        }
+
+        .rating > input:checked ~ label:before,
+        .rating > input:checked ~ label ~ label:before {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tenant Review</h2>
+    <form method="POST" action="/tenant_review/{{ plot_id }}">
+        <div class="rating">
+            <input type="radio" name="star_ratings" value="1" id="star1">
+            <label for="star1"></label>
+            <input type="radio" name="star_ratings" value="2" id="star2">
+            <label for="star2"></label>
+            <input type="radio" name="star_ratings" value="3" id="star3">
+            <label for="star3"></label>
+            <input type="radio" name="star_ratings" value="4" id="star4">
+            <label for="star4"></label>
+            <input type="radio" name="star_ratings" value="5" id="star5">
+            <label for="star5"></label>
+        </div>
+        <div>
+            <textarea name="comments" placeholder="Comments"></textarea>
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</body>
+</html>

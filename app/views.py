@@ -32,24 +32,37 @@ def load_user(user_id):
     return db_session.query(PlotInformation).get(user_id)
 
 
-@app.route("/turent-home")
+@app.route("/")
 def turent_home():
     return render_template("turent_home.html")
+
+from flask import render_template
+from flask_login import login_required
+
+# ...
 
 @app.route("/home")
 @login_required
 def home():
     print("Current user:", current_user)  # Print the current user for debugging purposes
 
-    if 'plot_id' in session:
-        print("Logged in as landlord. Plot ID:", session['plot_id'])
-        return render_template('home.html', user_type='landlord', plot='plot')
+    if 'plot_id' in session and 'plot_number' in session:
+        plot_id = session['plot_id']
+        plot_number = session['plot_number']
+        print("Logged in as landlord. Plot ID:", plot_id)
+        print("Plot Number:", plot_number)
+        return redirect(url_for('edit_plot'))  # Redirect to the edit plot page
+    
     elif 'tenant_id' in session:
-        print("Logged in as tenant. Tenant ID:", session['tenant_id'])
-        return render_template('home.html', user_type='tenant')
+        tenant_id = session['tenant_id']
+        print("Logged in as tenant. Tenant ID:", tenant_id)
+        return render_template('plot_info.html', user_type='tenant')
+    
     else:
-        print("User is not properly authenticated. Redirecting to login page.")
+        print("User is not properly authenticated. Redirecting to the login page.")
         return redirect('/login')
+
+
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -62,15 +75,16 @@ def login():
         landlord = db_session.query(PlotInformation).filter_by(email=email).first()
         if landlord and check_password_hash(landlord.password1, password):
             session['plot_id'] = landlord.id
+            session['plot_number'] = landlord.plot_number  # Store the plot number in the session
+
             flash('Login successful as landlord!')
             login_user(landlord)  # Log in the landlord user
-            return redirect(url_for('home'))  # Redirect to the home page
+            return redirect(url_for('home'))
 
         # Check if the login credentials belong to a tenant
         tenant_login = db_session.query(TenantLoginDetails).filter_by(username=email).first()
         if tenant_login and check_password_hash(tenant_login.password, password):
             session['tenant_id'] = tenant_login.tenant_id
-            session['plot_number'] = landlord.plot_number
             flash('Login successful as tenant!')
             login_user(tenant_login)  # Log in the tenant user
             return redirect(url_for('home'))  # Redirect to the home page
@@ -131,11 +145,12 @@ def edit_plot():
             plot.location = request.form['location']
             plot.password1 = request.form['password1']
             db_session.commit()
-            return 'Plot updated successfully!'
-        else:
-            return render_template('home.html', plot=plot)
-    else:
-        return 'Plot not found!'
+            flash('Plot updated successfully!', 'success')
+            return redirect(url_for('home'))  # Redirect to the landlord home page after successful update
+
+        return render_template('landlord_home.html', plot=plot)  # Return the render_template response for GET requests
+
+    return 'Plot not found!'
 
 
 
@@ -161,64 +176,79 @@ def delete_plot(plot_id):
         return 'Plot not found!'
 
     
-@app.route('/add_tenant/<int:plot_id>', methods=['GET', 'POST'])
-def add_tenant(plot_id):
-    if request.method == 'POST':
-        # Get tenant information from the form
-        name = request.form['name']
-        phone_number = request.form['phone_number']
-        house_id = request.form['house_id']
-        email = request.form['email']
-        username = request.form['username']
-        password = request.form['password']
-        hashed_password = generate_password_hash(password)
+@app.route('/add_tenant', methods=['GET', 'POST'])
+@login_required
+def add_tenant():
+    if 'plot_number' not in session:
+        return 'User is not a landlord. Access denied!'
 
-        # Create a new TenantInformation object
-        tenant = TenantInformation(name=name, phone_number=phone_number,  house_id=house_id, email=email)
-        db_session.add(tenant)
-        db_session.commit()
-
-        # Create a new TenantLoginDetails object
-        tenant_login = TenantLoginDetails(tenant_id=tenant.id,  username=username, password=hashed_password)
-        db_session.add(tenant_login)
-        db_session.commit()
-
-        return 'Tenant added successfully!'
-
-    houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
-    return render_template('add_tenant.html', houses=houses)
-
-
-
-@app.route('/edit_tenant/<int:tenant_id>', methods=['GET', 'POST'])
-def edit_tenant(tenant_id):
-    tenant = db_session.query(TenantInformation).filter_by(id=tenant_id).first()
-    if tenant:
+    plot_number = session['plot_number']
+    plot = db_session.query(PlotInformation).filter_by(plot_number=plot_number).first()
+    if plot:
         if request.method == 'POST':
-            # Get updated tenant information from the form
+            # Get tenant information from the form
             name = request.form['name']
             phone_number = request.form['phone_number']
-            email = request.form['email']
             house_id = request.form['house_id']
+            email = request.form['email']
+            username = request.form['username']
+            password = request.form['password']
+            hashed_password = generate_password_hash(password)
 
-            # Check if the house exists
-            house = db_session.query(HouseInformation).filter_by(id=house_id).first()
-            if house:
-                # Update the tenant information
-                tenant.name = name
-                tenant.phone_number = phone_number
-                tenant.email = email
-                tenant.house_id = house_id
-                db_session.commit()
-                return 'Tenant information updated successfully!'
-            else:
-                return 'House not found!'
-        else:
-            houses = db_session.query(HouseInformation).filter_by(plot_id=tenant.house_id).all()
-            return render_template('edit_tenant.html', tenant=tenant, houses=houses)
-    else:
-        return 'Tenant not found!'
+            # Create a new TenantInformation object
+            tenant = TenantInformation(name=name, phone_number=phone_number, house_id=house_id, email=email)
+            db_session.add(tenant)
+            db_session.commit()
+
+            # Create a new TenantLoginDetails object
+            tenant_login = TenantLoginDetails(tenant_id=tenant.id, username=username, password=hashed_password)
+            db_session.add(tenant_login)
+            db_session.commit()
+
+            return 'Tenant added successfully!'
+
+        houses = db_session.query(HouseInformation).filter_by(plot_id=plot.id).all()
+        return render_template('add_tenant.html', houses=houses)
+
+    return 'Plot not found!'
+
+@app.route('/edit_tenant', methods=['GET', 'POST'])
+def edit_tenant():
+    tenant_id = session.get('tenant_id')
     
+    if not tenant_id:
+        return 'Tenant ID not found in session!'
+
+    tenant = db_session.query(TenantInformation).filter_by(id=tenant_id).first()
+
+    if not tenant:
+        return 'Tenant not found!'
+
+    if request.method == 'POST':
+        # Get updated tenant information from the form
+        name = request.form['name']
+        phone_number = request.form['phone_number']
+        email = request.form['email']
+        house_id = request.form['house_id']
+
+        # Check if the house exists
+        house = db_session.query(HouseInformation).filter_by(id=house_id).first()
+
+        if not house:
+            return 'House not found!'
+
+        # Update the tenant information
+        tenant.name = name
+        tenant.phone_number = phone_number
+        tenant.email = email
+        tenant.house_id = house_id
+        db_session.commit()
+
+        return 'Tenant information updated successfully!'
+    
+    houses = db_session.query(HouseInformation).filter_by(plot_id=tenant.house_id).all()
+    return render_template('edit_tenant.html', tenant=tenant, houses=houses)
+
 
 @app.route('/delete_tenant/<int:tenant_id>', methods=['GET', 'POST'])
 def delete_tenant(tenant_id):
@@ -238,18 +268,22 @@ def delete_tenant(tenant_id):
         return 'Tenant not found!'
 
 
+from flask import session
 
-
-
-@app.route('/add_house_info/<int:plot_id>', methods=['GET', 'POST'])
-def add_house_info(plot_id):
-    plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
-
-    if not plot:
-        flash('Plot does not exist!')
-        return redirect('/')
-
+@app.route('/add_house_info', methods=['GET', 'POST'])
+@login_required
+def add_house_info():
     if request.method == 'POST':
+        plot_id = session.get('plot_id')
+        if not plot_id:
+            flash('Plot ID not found in session!')
+            return redirect('/')
+
+        plot = db_session.query(PlotInformation).filter_by(id=plot_id).first()
+        if not plot:
+            flash('Plot does not exist!')
+            return redirect('/')
+
         # Get house information from the form
         phone_number = request.form['phone_number']
         house_number = request.form['house_number']
@@ -267,10 +301,12 @@ def add_house_info(plot_id):
         db_session.add(house)
         db_session.commit()
 
-        return "added suscessfully"
+        return "Added successfully"
 
-    houses = db_session.query(HouseInformation).filter_by(plot_id=plot_id).all()
-    return render_template('add_house_info.html', plot=plot, houses=houses)
+    return render_template('add_house_info.html')
+
+
+
 
 
 @app.route('/edit_house/<int:house_id>', methods=['GET', 'POST'])

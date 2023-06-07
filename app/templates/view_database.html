@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Database</title>
+</head>
+<body>
+    <h1>Database Contents</h1>
+
+    <h2>Plot Information</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Plot Number</th>
+                <th>Phone Number</th>
+                <th>Total Houses</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plot in plots %}
+            <tr>
+                <td>{{ plot.id }}</td>
+                <td>{{ plot.plot_number }}</td>
+                <td>{{ plot.phone_number }}</td>
+                <td>{{ plot.total_houses }}</td>
+                <td>{{ plot.email }}</td>
+                <td>{{ plot.location }}</td>
+                <td>{{ plot.password1 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>House Information</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Plot ID</th>
+                <th>Phone Number</th>
+                <th>House Number</th>
+                <th>Rental Price</th>
+                <th>Rooms Available</th>
+                <th>Images Location</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for house in houses %}
+            <tr>
+                <td>{{ house.id }}</td>
+                <td>{{ house.plot_id }}</td>
+                <td>{{ house.phone_number }}</td>
+                <td>{{ house.house_number }}</td>
+                <td>{{ house.rental_price }}</td>
+                <td>{{ house.rooms_available }}</td>
+                <td>{{ house.images_location }}</td>
+                <td>{{ house.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Tenant Information</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>House ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tenant in tenants %}
+            <tr>
+                <td>{{ tenant.id }}</td>
+                <td>{{ tenant.name }}</td>
+                <td>{{ tenant.phone_number }}</td>
+                <td>{{ tenant.email }}</td>
+                <td>{{ tenant.house_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Reviews</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Plot Number</th>
+                <th>House Number</th>
+                <th>Star Ratings</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+            <tr>
+                <td>{{ review.id }}</td>
+                <td>{{ review.user_id }}</td>
+                <td>{{ review.plot_number }}</td>
+                <td>{{ review.house_number }}</td>
+                <td>{{ review.star_ratings }}</td>
+                <td>{{ review.comments }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Login Details</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for login in logins %}
+            <tr>
+                <td>{{ login.id }}</td>
+                <td>{{ login.username }}</td>
+                <td>{{ login.password1 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Tenant Login Details</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tenant ID</th>
+                <th>Username</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tenant_login in tenant_logins %}
+            <tr>
+                <td>{{ tenant_login.id }}</td>
+                <td>{{ tenant_login.tenant_id }}</td>
+                <td>{{ tenant_login.username }}</td>
+                <td>{{ tenant_login.password }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
