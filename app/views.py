@@ -32,7 +32,7 @@ def load_user(user_id):
     return db_session.query(PlotInformation).get(user_id)
 
 
-@app.route("turent-home")
+@app.route("/turent-home")
 def turent_home():
     return render_template("turent_home.html")
 
