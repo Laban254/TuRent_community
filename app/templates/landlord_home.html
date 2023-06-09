@@ -1,12 +1,21 @@
 {% extends "templates/base.html" %}
 
-{% block title %}About{% endblock %}
+{% block title %}Plot Information{% endblock %}
 
 {% block main %}
-    <div id="flash-messages"></div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
     <div class="form-container">
         <form id="myForm" action="/edit_plot" method="POST">
-            <label for="plot_number">Plot Number:</label>
+            <br><label for="plot_number">Plot Number:</label>
             <input type="text" name="plot_number" value="{{ plot.plot_number }}" required><br>
 
             <label for="phone_number">Phone Number:</label>
@@ -48,12 +57,12 @@
             var updatedEmail = document.getElementsByName('email')[0].value;
             var updatedLocation = document.getElementsByName('location')[0].value;
             var updatedPassword = document.getElementsByName('password1')[0].value;
-
+    
             // Create the AJAX request
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '/edit_plot', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
+    
             // Handle the AJAX response
             xhr.onload = function () {
                 if (xhr.status === 200 && xhr.responseText === 'success') {
@@ -67,7 +76,7 @@
                     console.log('Error: ' + xhr.responseText);
                 }
             };
-
+    
             // Send the AJAX request with the updated plot information
             xhr.send(
                 'phone_number=' +
@@ -82,7 +91,7 @@
                 encodeURIComponent(updatedPassword)
             );
         }
-
+    
         function flashMessage(message, type) {
             var flashContainer = document.getElementById('flash-messages');
             var flashElement = document.createElement('div');
@@ -90,17 +99,26 @@
             flashElement.classList.add(type);
             flashElement.textContent = message;
             flashContainer.appendChild(flashElement);
-
+    
             // Remove flashed message after a certain duration
             setTimeout(function () {
                 flashElement.remove();
-            }, 5000);
+            }, 3000); // 3 seconds duration
+    
+            // Clear existing flash messages after a certain duration
+            setTimeout(function () {
+                var flashes = document.getElementsByClassName('flash-message');
+                for (var i = 0; i < flashes.length; i++) {
+                    flashes[i].remove();
+                }
+            }, 3000); // 3 seconds duration
         }
-
+    
         // Add event listener to the form submit event
         document.getElementById('myForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the form from submitting normally
             updatePlot(); // Call the function to handle the AJAX request
         });
     </script>
+    
 {% endblock %}

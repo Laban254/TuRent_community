@@ -198,6 +198,8 @@ def delete_plot(plot_id):
         return 'Plot not found!'
 
     
+from flask import redirect, url_for, flash
+
 @app.route('/add_tenant', methods=['GET', 'POST'])
 @login_required
 def add_tenant():
@@ -227,12 +229,14 @@ def add_tenant():
             db_session.add(tenant_login)
             db_session.commit()
 
-            return 'Tenant added successfully!'
+            flash('Tenant added successfully!', 'success')
+            return redirect(url_for('home'))
 
         houses = db_session.query(HouseInformation).filter_by(plot_id=plot.id).all()
         return render_template('add_tenant.html', houses=houses)
 
     return 'Plot not found!'
+
 
 @app.route('/edit_tenant', methods=['GET', 'POST'])
 def edit_tenant():
@@ -344,9 +348,11 @@ def add_house_info():
         db_session.add(house)
         db_session.commit()
 
-        return "Added successfully"
+        flash('House added successfully!')
+        return redirect(url_for('home'))
 
     return render_template('add_house_info.html')
+
 
 
 
