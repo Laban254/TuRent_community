@@ -130,6 +130,8 @@ def register_plot():
     return render_template('register_plot.html')
 
 
+from flask import flash
+
 @app.route('/edit_plot', methods=['POST'])
 @login_required
 def edit_plot():
@@ -161,11 +163,15 @@ def edit_plot():
             plot.location = updated_location
             plot.password1 = updated_password
             db_session.commit()
+
+            flash('Plot information updated successfully!', 'success')  # Flash success message
             return 'success'  # Return success response
         else:
+            flash('No changes were made to the plot information.', 'info')  # Flash info message
             return 'no_update'  # Return no update response
 
     return 'Plot not found!'
+
 
 
 
