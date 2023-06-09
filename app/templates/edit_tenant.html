@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Edit Tenant</h1>
-    <form method="POST" action="{{ url_for('edit_tenant', tenant_id=tenant.id) }}">
+    <form method="POST" action='edit_tenant'>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" value="{{ tenant.name }}"><br>
 

@@ -45,13 +45,16 @@ from flask_login import login_required
 @login_required
 def home():
     print("Current user:", current_user)  # Print the current user for debugging purposes
-
+    
     if 'plot_id' in session and 'plot_number' in session:
         plot_id = session['plot_id']
         plot_number = session['plot_number']
         print("Logged in as landlord. Plot ID:", plot_id)
         print("Plot Number:", plot_number)
-        return redirect(url_for('edit_plot'))  # Redirect to the edit plot page
+
+        plot = db_session.query(PlotInformation).filter_by(plot_number=plot_number).first()
+        return render_template('landlord_home.html', plot=plot)  # Pass the 'plot' variable to the template context
+
     
     elif 'tenant_id' in session:
         tenant_id = session['tenant_id']
@@ -127,8 +130,7 @@ def register_plot():
     return render_template('register_plot.html')
 
 
-
-@app.route('/edit_plot', methods=['GET', 'POST'])
+@app.route('/edit_plot', methods=['POST'])
 @login_required
 def edit_plot():
     if 'plot_number' not in session:
@@ -137,20 +139,34 @@ def edit_plot():
     plot_number = session['plot_number']
     plot = db_session.query(PlotInformation).filter_by(plot_number=plot_number).first()
     if plot:
-        if request.method == 'POST':
-            # Get updated plot information from the form
-            plot.phone_number = request.form['phone_number']
-            plot.total_houses = request.form['total_houses']
-            plot.email = request.form['email']
-            plot.location = request.form['location']
-            plot.password1 = request.form['password1']
-            db_session.commit()
-            flash('Plot updated successfully!', 'success')
-            return redirect(url_for('home'))  # Redirect to the landlord home page after successful update
+        # Get updated plot information from the AJAX request
+        updated_phone_number = request.form['phone_number']
+        updated_total_houses = request.form['total_houses']
+        updated_email = request.form['email']
+        updated_location = request.form['location']
+        updated_password = request.form['password1']
 
-        return render_template('landlord_home.html', plot=plot)  # Return the render_template response for GET requests
+        # Check if any field has been updated
+        if (
+            plot.phone_number != updated_phone_number or
+            plot.total_houses != updated_total_houses or
+            plot.email != updated_email or
+            plot.location != updated_location or
+            plot.password1 != updated_password
+        ):
+            # Update plot information in the database
+            plot.phone_number = updated_phone_number
+            plot.total_houses = updated_total_houses
+            plot.email = updated_email
+            plot.location = updated_location
+            plot.password1 = updated_password
+            db_session.commit()
+            return 'success'  # Return success response
+        else:
+            return 'no_update'  # Return no update response
 
     return 'Plot not found!'
+
 
 
 
@@ -269,6 +285,27 @@ def delete_tenant(tenant_id):
 
 
 from flask import session
+
+@app.route('/plot')
+def plot_details():
+    # Get the plot number from the session or request arguments
+    plot_number = session.get('plot_number') or request.args.get('plot_number')
+
+    # Retrieve the plot based on the plot number
+    plot = db_session.query(PlotInformation).filter_by(plot_number=plot_number).first()
+
+    if plot:
+        # Get the houses associated with the plot
+        houses = db_session.query(HouseInformation).filter_by(plot_id=plot.id).all()
+
+        # Get the tenants associated with the houses
+        tenants = db_session.query(TenantInformation).join(HouseInformation).filter(HouseInformation.plot_id == plot.id).all()
+
+        # Render the template with the plot, houses, and tenants
+        return render_template('tenant_list.html', plot=plot, houses=houses, tenants=tenants)
+    else:
+        # Render the template with the plot not found message
+        return render_template('tenant_list.html', plot=None)
 
 @app.route('/add_house_info', methods=['GET', 'POST'])
 @login_required
@@ -389,7 +426,7 @@ def tenant_review(plot_id):
 
     return render_template('tenant_review.html', plot_id=plot_id)
 
-
+# to be commented on production
 @app.route('/view_database')
 def view_database():
     plots = db_session.query(PlotInformation).all()

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tenant List</title>
+</head>
+<body>
+    {% if tenants %}
+        <h1>Tenant List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>House Number</th>
+                    <!-- Add more columns as needed -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for tenant in tenants %}
+                    <tr>
+                        <td>{{ tenant.name }}</td>
+                        <td>{{ tenant.phone_number }}</td>
+                        <td>{{ tenant.email }}</td>
+                        <!--<td>{{ tenant.house.house_number }}</td>-->
+                        <!-- Update the attribute name as per your model -->
+                        <!-- Add more columns as needed -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No tenants found.</p>
+    {% endif %}
+</body>
+</html>
