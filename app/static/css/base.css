@@ -139,9 +139,9 @@ form.tenant_information {
     width: 400px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"] {
+input.tenant_info_text[type="text"],
+input.tenant_info_email[type="email"],
+input.tenant_info_tel[type="tel"] {
     width: 400px;
     padding: 12px;
     border-radius: 10px;
@@ -150,12 +150,12 @@ input[type="tel"] {
     margin-top: 6px;
 }
 
-input[type="submit"] {
+input.tenant_info_submit[type="submit"] {
     border-radius: 10px;
     width: 250px;
     margin-left: 20%;
     padding: 12px 20px;
     background-color: #66CC99;
-    color: white;
+    color: rgb(238, 229, 229);
 }
 
