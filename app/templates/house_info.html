@@ -1,0 +1,45 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+<div class="container">
+    <div class="row">
+        <div class="column">
+            <form class="house_info" >
+                <div class="heading">
+                    <h1>House Information</h1>
+                </div>
+                
+                <label for="Houseno">House Number</label><br>
+                <input type="number" id="house no" name="first name" required><br><br>
+                
+                <label for="house rent">House Rent</label><br>
+                <input type="number" id="house rent" name="house rent" required><br><br>
+                
+                <label for="no of bedrooms">Number of Bedrooms</label><br>
+                <input type="number" id="no of bedrooms" name="no of bedrooms" required><br><br>
+                
+                
+                <label for="description"> Description</label><br>
+                <input type="text" id="description" name="description" required><br><br>
+          </form> 
+
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="column">
+            <div class="column" id="image"> </div>
+           
+            <input type="submit" value="Submit Information">
+
+
+        </div>
+
+    </div>
+   
+</div>
+
+
+{%endblock%}
+
