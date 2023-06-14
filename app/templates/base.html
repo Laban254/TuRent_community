@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+    <link rel="stylesheet" href="././static/css/base.css">
+    <link rel="stylesheet" href="././static/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="nav">
+        <div id="app-identity">
+            <img id="logo" src="././static/img/logo.png" alt="TURENT">
+            <span id="application_name">TURENT</span>
+        </div>
+        <div id="nav_items">
+            <a class="current_tab" href="#">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">New Tenant</a>
+            <a href="#">Edit Tenant info</a>
+            <a href="#">New House</a>
+            <a href="#">Screen Tenant</a>
+        </div>
+    </div>
+    {%block content%}
+    {%endblock%}
+    <script src="./base.js"></script>
+</body>
+</html>
