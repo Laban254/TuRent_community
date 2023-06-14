@@ -32,7 +32,7 @@ def load_user(user_id):
 
 @app.route("/")
 def turent_home():
-    return render_template("plot_registration.html")
+    return render_template("tenants.html")
 
 # ...
 

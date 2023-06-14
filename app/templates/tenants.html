@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class="container_tenants">
+    <h1 class="header_tenants">Tenants Information</h1>
+    <table>
+        <tr>
+            <th></th>
+            <th>House Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Rating</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td class="number-column">1</td>
+            <td><input type="text" id="houseNumber" class="tenant_text" name="houseNumber" placeholder="House number" required></td>
+            <td><input type="text" id="firstName" class="tenant_text" name="firstName" placeholder="First name"  required></td>
+            <td><input type="text" id="lastName"  class="tenant_text" name="lastName" placeholder="Last name" required></td>
+            <td><input type="email" id="email" class="tenant_email" name="email" placeholder="Email" required></td>
+            <td><input type="tel" id="phoneNumber" class="tenant_tel" name="phoneNumber"  placeholder="Phone number" required></td>
+            <td>
+                <div class="rating">
+                    <input type="radio" id="star1" name="rating" value="" required>
+                    <label for="star1"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star5" name="rating" value="5">
+                    <label for="star5"><i class="fas fa-star"></i></label>
+                </div>
+            </td>
+            <td class="edit-button_tenants"><button class="tenants_button">Edit Information</button></td>
+        </tr>
+    </table>
+</div>
+
+{%endblock%}

@@ -189,3 +189,108 @@ input.plot_info_submit[type="submit"] {
     background-color: #FF9900;
     color: white;
 }
+
+
+/*all plot tenants*/
+
+.container_tenants {
+    max-width: 1100px;
+    margin: 10px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th {
+    color: hsla(0, 65%, 3%, 0.863);
+    padding: 6px;
+    text-align: left;
+    font-weight: bold;
+    border-radius: 1px 1px 0 0;
+}
+
+td {
+    padding: 4px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+
+input.tenant_text[type="text"],
+input.tenant_email[type="email"],
+input.tenant_tel[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    box-sizing: border-box;
+    margin-top: 3px;
+    background-color: transparent;
+    outline: none;
+}
+
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 9px;
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    font-size: 15px;
+    color: #ccc;
+    margin: 0 3px;
+    display: inline-block;
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input[type="radio"]:checked ~ label {
+    color: #0c0c0c;
+}
+
+.rate {
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.edit-button_tenants {
+    text-align: center;
+}
+
+.edit-button_tenants button {
+    border-radius: 6px;
+    padding: 2px 2px;
+    background-color: #66CC99;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button_tenants button:hover {
+    background-color: #3ba478;
+}
+
+.number-column {
+    text-align: center;
+    vertical-align: middle;
+}
+.header_tenants {
+    text-align: center;
+}
+
+.tenants_button {
+    width: 10em;
+}
