@@ -1,3 +1,5 @@
+from app import app
+
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -10,6 +12,7 @@ class Config(object):
 
     SESSION_COOKIE_SECURE = True
     
+app.config['ENV'] = 'production'
 
 class ProductionConfig(Config):
     pass
