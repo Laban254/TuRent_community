@@ -126,3 +126,69 @@ button{
 p{
     font-size: 18px;
 }
+
+/*tenant information*/
+form.tenant_information {
+    margin-top: 10px;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+
+.heading {
+    text-align: center;
+    width: 400px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 6px;
+}
+
+input[type="submit"] {
+    border-radius: 10px;
+    width: 250px;
+    margin-left: 20%;
+    padding: 12px 20px;
+    background-color: #66CC99;
+    color: white;
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: left;
+    align-items: left;
+    margin-top: 10px;
+    margin-right: 0%;
+    
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    font-size: 15px;
+    color: #ccc;
+    margin: 0 3px;
+    display: inline-block;
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input[type="radio"]:checked ~ label {
+    color: #0c0c0c;
+}
+
+.rate {
+    margin-right: 20px;
+    margin-top: 2px;
+    font-weight: bold;
+}
