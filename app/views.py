@@ -5,8 +5,6 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import Base, PlotInformation, HouseInformation, TenantInformation, Reviews, LoginDetails, TenantLoginDetails
 from flask_login import login_required,  LoginManager, current_user, login_user
-
-
 # Set a secret key for session management
 app.secret_key = 'your_secret_key'
 
@@ -33,11 +31,9 @@ def load_user(user_id):
 
 
 @app.route("/")
+@app.route("/home")
 def turent_home():
-    return render_template("turent_home.html")
-
-from flask import render_template
-from flask_login import login_required
+    return render_template("home.html")
 
 # ...
 
