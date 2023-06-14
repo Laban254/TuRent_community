@@ -1,3 +1,69 @@
-body {
-    background-color: #66CC99;
+#get_started{
+  background-color: #F8991D;
+  margin-top: 1em;
+  width: 16em;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /*grid-template-rows: 2f 1f;*/
+    grid-gap: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 190px;
+    width: 900px;
+}
+#image{
+  background-image: url(../img/Turent.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    align-items: center;
+}
+.row h1{
+  margin-top: 3em;
+}
+.column {
+    padding: 10px;
+    align-items: center;
+    height: 70vh;
+    width: 70vh;
+}
+.image{
+    width: 400px;
+    height: 350px;
+    margin-top: 100px;
+    background-color: #d8e4df;
+
+}
+
+/* Add other CSS styles as needed */
+
+
+   /* Add other CSS styles as needed 
+
+.footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+  */
