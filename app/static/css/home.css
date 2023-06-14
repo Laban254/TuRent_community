@@ -67,3 +67,39 @@
     font-size: 14px;
   }
   */
+
+  /*login */
+
+  form.login {
+    margin-top: 70px;
+    margin-left: 375px;
+    margin-right: 375px;
+}
+
+.login_logo {
+    text-align: center;
+    justify-content: center;
+}
+
+
+input.login_email[type="email"],
+input.login_password[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 4px;
+
+}
+
+input.login_submit[type="submit"] {
+    border-radius: 10px;
+    width: 140px;
+    margin-left: 22%;
+    padding: 12px 20px;
+    background-color: #FF9900;
+    color: white;
+    margin-top: 4px;
+} 
