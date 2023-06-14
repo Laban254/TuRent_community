@@ -1,0 +1,7 @@
+.nav{
+    grid-template-columns: 2fr 1fr;
+}
+#nav_items{
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 25px;
+}
