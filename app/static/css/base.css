@@ -159,3 +159,33 @@ input.tenant_info_submit[type="submit"] {
     color: rgb(238, 229, 229);
 }
 
+/*plot registration*/
+.plot_info_form {
+    margin-top: 10px;
+    margin-left: 350px;
+    margin-right: 300px;
+    width: 300px;
+}
+
+
+input.plot_info_text[type="text"],
+input.plot_info_email[type="email"],
+input.plot_info_number[type="number"],
+input.plot_info_password[type="password"],
+input.plot_info_tel[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 6px;
+}
+
+input.plot_info_submit[type="submit"] {
+    border-radius: 10px;
+    width: 150px;
+    margin-left: 25%;
+    padding: 12px 20px;
+    background-color: #FF9900;
+    color: white;
+}

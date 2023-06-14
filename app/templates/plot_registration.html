@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<form class="plot_info_form">
+    <label for="plot">Plot Number</label>
+    <input type="text" id="plot"  class="plot_info_text" name="plot" required><br><br>
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" class="plot_info_tel" pattern="[0-9]{10}" required><br><br>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email"  class="plot_info_email" required><br><br>
+
+    <label for="houses">Number of Houses</label>
+    <input type="number" id="houses"  class="plot_info_number" name="houses" min="1"  required><br><br>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" class="plot_info_password" name="password" required><br><br>
+
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" class="plot_info_password" name="confirmPassword" required><br><br>
+
+    <input type="submit" class="plot_info_submit" value="Submit Information">
+</form>
+{%endblock%}
