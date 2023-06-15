@@ -1,0 +1,52 @@
+{%extends "tenant_base.html"%}
+
+{%block link%}
+    <link rel="stylesheet" href="././static/css/rate_landlord.css">
+{%endblock%}
+
+{%block content%}
+<div class="content">
+    <div id="welcome-section">
+        <div id="Review-statement">
+            <h1>Why Rate.</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque doloribus ea pariatur temporibus facere dignissimos explicabo deserunt excepturi. Magnam beatae, consequuntur molestiae voluptatibus quam illum facere eos voluptate error qui.
+            Sed, praesentium? Repellat fugiat reiciendis libero, untur rem repellat ue at ab dolorum ullam obcaecati blanditiis sequi nulla quam doloribus placeat odit voluptatum consectetur veritatis! Similique, quibusdam corporis. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, non sint? Inventore earum odio placeat natus reiciendis beatae pariatur voluptates dicta facere minima ullam magnam dolores debitis commodi, quos architecto?
+            Blanditiis sed, velit maiores neque commodi fuga corrupti vitae! Accusantium, voluptas illo. Recusandae minima alias perferendis aspernatur, maxime nisi aliquid voluptatem assumenda laboriosam repellat impedit quis, eveniet nemo hic in.
+            Voluptatem adipisci rem non ducimus soluta impedit molestiae fuga veniam recusandae earum omnis possimus mollitia deleniti hic officiis, tempore quae veritatis? Deleniti voluptas, molestias optio cumque rem perferendis in magnam?</p>
+        </div>
+    </div>
+    <div id="Review_section">
+        <div id="Review-pack">
+            <form action="" method="post">
+                <h3>Comment</h3>
+                <textarea name="" id="comment-box" cols="50" rows="8" placeholder="Type Your Comment"></textarea>
+                <h3>Rate</h3>
+                <label>
+                    <input type="checkbox" class="checkbox" name="rating" value="1"/>
+                    <i class="fas fa-star star_rating"></i>
+                </label>
+                <label>
+                    <input type="checkbox" class="checkbox" name="rating" value="2"/>
+                    <i class="fas fa-star star_rating"></i>
+                </label>
+                <label>
+                    <input type="checkbox" class="checkbox" name="rating" value="3"/>
+                    <i class="fas fa-star star_rating"></i>
+                </label>
+                <label>
+                    <input type="checkbox" class="checkbox" name="rating" value="4"/>
+                    <i class="fas fa-star star_rating"></i>
+                </label>
+                <label>
+                    <input type="checkbox" class="checkbox" name="rating" value="5"/>
+                    <i class="fas fa-star star_rating"></i>
+                </label>
+                <button type="submit" id="rating_submit-button" class="submit_button">Submit Rating</button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
+{%block script%}
+    <script src="././static/scripts/rate_landlord.js"></script>
+{%endblock%}

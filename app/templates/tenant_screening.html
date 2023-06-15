@@ -1,0 +1,34 @@
+{%extends "base.html"%}
+
+{%block link%}
+    <link rel="stylesheet" href="././static/css/tenant_rating.css">
+{%endblock%}
+{%block content%}
+<div class="content">
+    <h1>Tenant Information</h1>
+    <input type="email" class="text_box" placeholder="Enter tenant's Email" id="email-text_box">
+    <div id="user-information">
+        <div id="names">
+            <h3>First Name</h3>
+            <input type="text" name="" id="" class="text_box" placeholder="Bravin" disabled="disabled">
+            <h3>Last Name</h3>
+            <input type="text" name="" id="" class="text_box" placeholder="Atonya" disabled="disabled">
+        </div>
+        <div id="other_info">
+            <h3>Email</h3>
+            <input type="text" name="" id="" class="text_box" placeholder="bravinatonya.brani@gmail.com" disabled="disabled">
+            <h3>Phone Number</h3>
+            <input type="text" name="" id="" class="text_box" placeholder="0791995866" disabled="disabled">
+        </div>
+    </div>
+    <div id="Rating-section">
+        <p>This Tenant's<br>
+            Rating is</p>
+            <i class="fas fa-star star_rating"></i>
+            <i class="fas fa-star star_rating"></i>
+            <i class="fas fa-star star_rating"></i>
+            <i class="fas fa-star star_rating"></i>
+            <i class="fas fa-star star_rating"></i>
+    </div>
+</div>
+{%endblock%}
