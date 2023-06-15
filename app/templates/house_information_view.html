@@ -1,0 +1,73 @@
+{%extends "tenant_base.html"%}
+
+{%block link%}
+    <link rel="stylesheet" href="././static/css/house_information_view.css">
+{%endblock%}
+{%block content%}
+<div class="content">
+    <div class="about_house">
+        <h1>House Information</h1>
+        <div class="house_view">
+            <div class="desctiption">
+                <h2>Description</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur tenetur perferendis architecto rem qui natus quidem debitis est odio ut. Modi inventore quas voluptatum porro impedit molestiae incidunt dolores. Minus.
+                Soluta minus ullam, magni ipsa molestiae nisi. Sint quibusdam voluptates, odio as omnis iusto vel debitis modi doloribus quod et, aspernatur dicta sint aliquam cumque sequi praesentium vero?
+                </p>
+                <h2>Rating</h2>
+                <i class="fas fa-star star_rating"></i>
+                <i class="fas fa-star star_rating"></i>
+                <i class="fas fa-star star_rating"></i>
+                <i class="fas fa-star star_rating"></i>
+                <i class="fas fa-star star_rating"></i>
+            </div>
+            <div class="carousel">
+                <div class="carousel-container">
+                    <div class="carousel-button-container">
+                        <button class="carousel-button left-carousel-button">
+                            <i class="fas fa-caret-left star_rating"></i>
+                        </button>
+                    </div>
+                    <div class="slider-holder">
+                        <div class="slider">
+                            <div class="carousel-slide">
+        
+                            </div>
+                            <div class="carousel-slide active-slide" id="slide-2">
+        
+                            </div>
+                            <div class="carousel-slide" id="slide-3">
+        
+                            </div>
+                            <div class="carousel-slide" id="slide-4">
+        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-button-container">
+                        <button class="carousel-button right-carousel-button">
+                            <i class="fas fa-caret-right star_rating"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="house-information">
+            <div id="entity_information">
+                <h3>House Rent</h3>
+                <input type="text" name="" id="" class="text_box" placeholder="12,000" disabled="disabled">
+                <h3>Number of Bedrooms</h3>
+                <input type="text" name="" id="" class="text_box" placeholder="1" disabled="disabled">
+            </div>
+            <div id="other_info">
+                <h3>Contact</h3>
+                <input type="text" name="" id="" class="text_box" placeholder="0791995866" disabled="disabled">
+                <h3>Physical Address</h3>
+                <input type="text" name="" id="" class="text_box" placeholder="Amboseli, next to quickmart" disabled="disabled">
+            </div>
+        </div>  
+    </div>
+</div>
+{%endblock%}
+{%block script%}
+    <script src="././static/scripts/house_information_view.js"></script>
+{%endblock%}
