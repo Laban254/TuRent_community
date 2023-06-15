@@ -64,7 +64,33 @@ def tenant_registration():
 @app.route("/plot_registration")
 def plot_registration():
     return render_template("plot_registration.html")
-    
+
+@app.route("/about_us")
+def about_us():
+    return render_template("about_us.html")
+
+@app.route("/house_information")
+def house_information():
+    return render_template("house_information_view.html")
+
+
+@app.route("/landlord_landing_page")
+def landlord_page():
+    return render_template("landlord_landing_page.html")
+
+@app.route("/house_registration")
+def house_registration():
+    return render_template("house_info.html")
+
+@app.route("/edit_tenant_info")
+def edit_tenant_info():
+    return render_template("tenants.html")
+
+@app.route("/landlord_screening")
+def landlord_screening():
+    return render_template("landlord_screening.html")
+
+
 """
 @app.route("/log_in")
 @login_required
