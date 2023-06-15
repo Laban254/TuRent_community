@@ -1,5 +1,9 @@
 {%extends 'home_base.html'%}
 
+{%block link%}
+    <link rel="stylesheet" href="././static/css/login.css">
+{%endblock%}
+
 {% block content%}
 <body>
     <form class="login">
@@ -7,11 +11,11 @@
             <img src="././static/img/logo.png" alt="Avatar" class="logo">
         </div>
         <div>
-        <label for="email">Enter Email</label><br>
-        <input type="email" id="email" class="login_email" name="email" required><br>
+        <label for="email"><h3>Enter Email</h3></label><br>
+        <input type="email" id="email" class="login_email text_box" name="email" required><br>
 
-        <label for="password">Password</label><br>
-        <input type="password" id="password"  class="login_password" name="password" required><br>
+        <label for="password"><h3>Password</h3></label><br>
+        <input type="password" id="password"  class="login_password text_box" name="password" required><br>
 
         <input type="submit" class="login_submit" value="Login">
         </div>
