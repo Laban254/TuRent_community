@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ title }}{% endblock %}</title>
     <link rel="stylesheet" href="././static/css/base.css">
-    <link rel="stylesheet" href="././static/css/home.css">
+    {%block link%}{%endblock%}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -26,6 +26,6 @@
     </div>
     {%block content%}
     {%endblock%}
-    <script src="./base.js"></script>
+    <!--<script src="./base.js"></script>-->
 </body>
 </html>
