@@ -1,0 +1,52 @@
+{%extends "tenant_base.html"%}
+
+{%block link%}
+    <link rel="stylesheet" href="././static/css/landlord_screeningpage.css">
+{%endblock%}
+{%block content%}
+    <h1>Landlord Information </h1>
+    <input type="text" class="search-input search" placeholder="Enter Pot number">
+
+    <div class="container">
+        <div class="row">
+            <div class="column">
+                <label for="plot">Plot Number</label><br>
+                <input type="text" id="plot" name="plot" required><br><br>
+
+                <div class="rating">
+                    <p class="rate">Rating </p><br>
+                    <input type="radio" id="star1" name="rating" value="5" required>
+                    <label for="star1"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star2" name="rating" value="4">
+                    <label for="star2"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star4" name="rating" value="2">
+                    <label for="star4"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star5" name="rating" value="1">
+                    <label for="star5"><i class="fas fa-star"></i></label>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+        
+                <label for="phoneNumber">Phone Number</label><br>
+                <input type="tel" id="phoneNumber" name="phoneNumber" required><br><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="comment-section">
+        <div class="arrow-left"></div>
+        <div class="arrow-right"></div>
+        <div class="comment-text">
+            This is a comment section with arrows on both sides of the rectangle.
+        </div>
+    </div>
+    
+
+{%endblock%}
