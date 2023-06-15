@@ -1,0 +1,60 @@
+.member_image{
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+    border-color: solid black;
+}
+#laban{
+    background-image: url("static/img/laban.png");
+}
+.about-section {
+    text-align: center;
+    padding: 50px 0;
+    margin-left: 10%;
+    margin-right: 10%;
+    
+  }
+  
+  .about-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333333;
+  }
+  
+  .about-section p {
+    font-size: 1.2rem;
+    color: #555555;
+  }
+  
+  .team-members {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 30px;
+  }
+  
+  .team-member {
+    margin: 0 15px;
+    text-align: center;
+  }
+  
+  .team-member h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .social-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .social-links li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .social-links a {
+    text-decoration: none;
+    color: blueviolet;
+  }
