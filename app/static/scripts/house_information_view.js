@@ -98,6 +98,7 @@ for(let carouselContainersCount = 0; carouselContainersCount < carouselContainer
                         this.style.display = "none";
                     }
                 }
+                
                 else{
                     this.style.display = "none";
                 }
