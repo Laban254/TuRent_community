@@ -31,7 +31,12 @@
     </div>
     <div class="row">
         <div class="column">
-            <div class="column" id="image"> </div>
+            <div> 
+                <div class="dropzone" id="dropzone">
+                    <span class="dropzone-text">Drag and drop an image here</span>
+                </div>
+
+            </div>
            
             <input type="submit" value="Submit Information">
 
@@ -41,7 +46,9 @@
     </div>
    
 </div>
+{%endblock%}
 
-
+{%block script%}
+    <script src="././static/scripts/house_info.js"></script>
 {%endblock%}
 
