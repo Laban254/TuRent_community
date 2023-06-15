@@ -1,0 +1,115 @@
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 190px;
+    width: 900px;
+    
+
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+}
+
+.column {
+    padding: 10px;
+    
+}
+.search-input.search {
+    width: 190px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: px;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 6px;
+}
+
+input#plot[type="text"] {
+    background-color: rgb(212, 218, 218);
+}
+
+.rating {
+    display: flex;
+    justify-content: left;
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    font-size: 15px;
+    color: #ccc;
+    margin: 0 3px;
+    display: inline-block;
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input[type="radio"]:checked ~ label {
+    color: #0c0c0c;
+}
+
+.rate {
+    margin-right: 20px;
+    margin-top: 2px;
+    font-weight: bold
+}
+
+
+.comment-section {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    background-color: #d8e4df;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.arrow-left,
+.arrow-right {
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    cursor: pointer;
+}
+
+.arrow-left {
+    left: -20px;
+    border-right: 10px solid black;
+}
+
+.arrow-right {
+    right: -20px;
+    border-left: 10px solid black;
+}
+
+.comment-text {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    font-weight: bold;
+}
