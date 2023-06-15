@@ -81,6 +81,13 @@ h1{
     font-family: Bold;
     color: #707070
 }
+h2{
+    margin-bottom: .25em;
+    margin-top: .5em;
+    font-family: Bold;
+    font-size: 18px;
+    color: #707070
+}
 h3{
     margin-bottom: .25em;
     margin-top: .5em;
@@ -124,7 +131,8 @@ button{
     font-size: 14px;
 }
 p{
-    font-size: 18px;
+    font-family: light;
+    font-size: 13px;
 }
 
 /*tenant information*/

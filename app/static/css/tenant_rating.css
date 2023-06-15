@@ -1,0 +1,32 @@
+.content{
+    position: relative;
+}
+h1{
+    text-align: center;
+}
+#email-text_box{
+    position:absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+#user-information{
+    position: absolute;
+    display: grid;
+    left: 50%;
+    transform: translate(-50%);
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 5em;
+    top: 8em;
+}
+#Rating-section{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 20em;
+    text-align:center;
+}
+#Rating-section p{
+    margin-bottom:1em;
+    font-family: semi_bold;
+    font-size: 18px;
+}

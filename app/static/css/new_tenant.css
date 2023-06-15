@@ -1,0 +1,16 @@
+#content{
+    position: relative;
+}
+.add_tenant_info{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+#new_tenant_submit{
+    background-color: #6DC497;
+}
+.text_box{
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}

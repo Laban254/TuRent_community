@@ -1,0 +1,76 @@
+.content{
+    position: relative;
+}  
+.about_house{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+.about_house h1{
+    text-align: center;
+}
+#house-information{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-column-gap: 10em;
+}
+.house_view{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 2em;
+    grid-column-gap: 5em;
+}
+.carousel-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.slider-holder{
+    width: 80%;
+    height:80%;
+    background-color: white;
+    margin: 0 5px;
+    overflow: hidden;
+}
+.carousel-button-container{
+    height: 100%;
+    width: 2em;
+    position: relative;
+}
+.carousel-button{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+    color: black;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+}
+.slider{
+    height:100%;
+    position: relative;
+    transition: left,right 500ms ease-in;
+}
+.carousel-slide{
+    background-color: yellow;
+    height:100%;
+    position: absolute;
+}
+.left-carousel-button{
+    display: none;
+}
+#slide-2{
+    background-color: crimson;
+}
+#slide-3{
+    background-color: greenyellow;
+}
+
+#slide-4{
+    background-color: pink;
+}

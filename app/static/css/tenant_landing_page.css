@@ -1,0 +1,30 @@
+.content{
+    position: absolute;
+    height: 80vh !important;
+    width: 90% !important;
+    top: 10vh;
+    display: grid;
+    right: 5%;
+    grid-template-columns: repeat(2, 1fr);
+}
+#welcome-section{
+    position: relative;
+}
+#welcome-statement{
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+#welcome-section p{
+    font-family: light;
+    font-size: 13px;
+}
+#available_houses{
+    background-color: #F8991D;
+}
+#landlord_rating{
+    background-color: #6DC497;
+}
+#landlord_screening{
+    background-color: #1C3664;
+}
