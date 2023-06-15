@@ -1,30 +1,32 @@
 {%extends 'base.html'%}
 
+{%block link%}
+    <link rel="stylesheet" href="././static/css/new_tenant.css">
+{%endblock%}
 {%block content%} 
-<main>
-<form class="add_tenant_info">
-    <div class="heading">
-        <h1>New Tenant Information</h1>
-    </div>
-    
-    <label for="first name">First Name</label><br>
-    <input type="text" id="first_name" name="first name" required><br><br>
-    
-    <label for="lastName">Last Name</label><br>
-    <input type="text" id="last_name" name="last name" required><br><br>
-    
-    <label for="email">Email</label><br>
-    <input type="text" id="email" name="email" required><br><br>
-    
-    
-    <label for="phoneNumber">Phone Number</label><br>
-    <input type="tel" id="phoneNumber" name="phoneNumber" required><br><br>
+<div id=content>
+    <form class="add_tenant_info">
+        <div class="heading">
+            <h1>New Tenant Information</h1>
+        </div>
+        
+        <label for="first name"><h3>First Name</h3></label><br>
+        <input type="text" id="first_name" name="first name" class="text_box" required><br><br>
+        
+        <label for="lastName"><h3>Last Name</h3></label><br>
+        <input type="text" id="last_name" name="last name" class="text_box" required><br><br>
+        
+        <label for="email"><h3>Email</h3></label><br>
+        <input type="text" id="email" name="email" class="text_box" required><br><br>
+        
+        
+        <label for="phoneNumber"><h3>Phone Number</h3></label><br>
+        <input type="tel" id="phoneNumber" name="phoneNumber" class="text_box" required><br><br>
 
-  
     
-    <input type="submit" value="Submit Information">
-</form>
-</main>
-
+        
+        <button type="submit" value="Submit Information" class="submit_button" id="new_tenant_submit">Submit Information</button>
+    </form>
+</div>
 
 {%endblock%}
