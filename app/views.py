@@ -21,6 +21,8 @@ login_manager.login_view = 'login'
 engine = create_engine('sqlite:///turent.db')
 Session = scoped_session(sessionmaker(bind=engine))
 db_session = Session
+# Create the tables
+Base.metadata.create_all(engine)
 
 
 # user loader function
@@ -60,10 +62,52 @@ def login_page():
 def tenant_registration():
     return render_template("new_tenant_info.html")
 
-#Plot registration page route
-@app.route("/plot_registration")
-def plot_registration():
-    return render_template("plot_registration.html")
+    
+#registering the plot
+@app.route('/register_plot', methods=['GET', 'POST'])
+def register_plot():
+    if request.method == 'POST':
+        # Get plot information from the form
+        plot_number = request.form['plot_number']
+        phone_number = request.form['phone_number']
+        total_houses = request.form['total_houses']
+        email = request.form['email']
+        location = request.form['location']
+        password1 = request.form['password1']
+        hashed_password = generate_password_hash(password1)
+
+        # Check if a plot with the given plot_number already exists
+        existing_plot = db_session.query(PlotInformation).filter_by(plot_number=plot_number).first()
+        if existing_plot:
+            flash('Plot already exists!')
+            return redirect('/register_plot')
+
+        # Create a new PlotInformation object
+        plot = PlotInformation(plot_number=plot_number, phone_number=phone_number,
+                               total_houses=total_houses, email=email, location=location, password1=hashed_password)
+
+        # Add the plot to the session and commit the changes
+        db_session.add(plot)
+        db_session.commit()
+
+        return 'Plot registered successfully!'
+
+    return render_template('plot_registration.html')
+
+@app.route("/home")
+@login_required
+def home():
+    print("Current user:", current_user)  # Print the current user for debugging purposes
+
+    if 'plot_id' in session:
+        print("Logged in as landlord. Plot ID:", session['plot_id'])
+        return render_template('login.html', user_type='landlord')
+    elif 'tenant_id' in session:
+        print("Logged in as tenant. Tenant ID:", session['tenant_id'])
+        return render_template('login.html', user_type='tenant')
+    else:
+        print("User is not properly authenticated. Redirecting to login page.")
+        return redirect('/login')
 
 @app.route("/about_us")
 def about_us():
@@ -90,6 +134,21 @@ def edit_tenant_info():
 def landlord_screening():
     return render_template("landlord_screening.html")
 
+
+
+
+
+@app.route('/view_database')
+def view_database():
+    plots = db_session.query(PlotInformation).all()
+    houses = db_session.query(HouseInformation).all()
+    tenants = db_session.query(TenantInformation).all()
+    reviews = db_session.query(Reviews).all()
+    logins = db_session.query(LoginDetails).all()
+    tenant_logins = db_session.query(TenantLoginDetails).all()
+
+    return render_template('view_database.html', plots=plots, houses=houses, tenants=tenants,
+                           reviews=reviews, logins=logins, tenant_logins=tenant_logins)
 
 """
 @app.route("/log_in")
