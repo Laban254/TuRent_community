@@ -1,12 +1,34 @@
 .member_image{
+  
     width: 8em;
     height: 8em;
     border-radius: 50%;
     border-color: solid black;
 }
-#laban{
-    background-image: url("static/img/laban.png");
+
+.member_image.laban {
+  background-image: url('/static/img/laban.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no repeat ;
 }
+
+.member_image.myra {
+  background-image: url('/static/img/myra.png');
+  background-size: cover;
+  background-position: center;
+  
+  background-repeat: no repeat ;
+}
+
+.member_image.bravin {
+  background-image: url('/static/img/bravin\ atonya.PNG');
+}
+
+
+/*#laban{
+    background-image: url("static/img/laban.png");
+}*/
 .about-section {
     text-align: center;
     padding: 50px 0;
