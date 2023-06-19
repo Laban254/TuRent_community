@@ -1,10 +1,12 @@
-from app import app
 from flask import render_template, request, redirect, session, flash, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import Base, PlotInformation, HouseInformation, TenantInformation, Reviews, LoginDetails, TenantLoginDetails
 from flask_login import login_required,  LoginManager, current_user, login_user
+from app import app
+from .models import Base, PlotInformation, HouseInformation, TenantInformation, Reviews, LoginDetails, TenantLoginDetails
+
+
 # Set a secret key for session management
 app.secret_key = 'your_secret_key'
 
@@ -18,7 +20,7 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 # Create SQLite database engine and bind it to the session using a connection pool
-engine = create_engine('sqlite:///turent.db')
+engine = create_engine('sqlite:///turent_community.db')
 Session = scoped_session(sessionmaker(bind=engine))
 db_session = Session
 # Create the tables
