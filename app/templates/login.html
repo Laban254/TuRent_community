@@ -6,7 +6,17 @@
 
 {% block content%}
 <body>
-    <form class="login">
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flash-messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% endwith %}
+    <form class="login" method="POST" action="{{ url_for('login_page') }}">
         <div class="login_logo">
             <img src="././static/img/logo.png" alt="Avatar" class="logo">
         </div>

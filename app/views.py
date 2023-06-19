@@ -88,9 +88,54 @@ def register_plot():
         db_session.commit()
 
         flash('Plot added successfully!')
-        return redirect(url_for('login_page'))
+        return redirect('/login')
 
     return render_template('plot_registration.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login_page():
+    if request.method == 'POST':
+        # Get login information from the form
+        email = request.form['email']
+        password = request.form['password']
+
+        # Check if the login credentials belong to a landlord
+        landlord = db_session.query(PlotInformation).filter_by(email=email).first()
+        if landlord and check_password_hash(landlord.password1, password):
+            session['plot_id'] = landlord.id
+            session['plot_number'] = landlord.plot_number  # Store the plot number in the session
+
+            flash('Login successful as landlord!')
+            login_user(landlord)  # Log in the landlord user
+            return redirect(url_for('landlord_page'))
+
+        # Check if the login credentials belong to a tenant
+        tenant_login = db_session.query(TenantLoginDetails).filter_by(username=email).first()
+        if tenant_login and check_password_hash(tenant_login.password, password):
+            session['tenant_id'] = tenant_login.tenant_id
+            flash('Login successful as tenant!')
+            login_user(tenant_login)  # Log in the tenant user
+            return redirect(url_for('home'))  # Redirect to the home page
+
+        flash('Invalid email or password!')
+        return redirect('/login')
+
+    return render_template('login.html')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    """
+    Log out the current user.
+
+    Returns:
+        The user is logged out and redirected to the home page.
+    """
+    logout_user()
+    return redirect(url_for('turent_home'))
+
 
 #landlord rating page route
 @app.route("/rate_landlord")
@@ -107,33 +152,11 @@ def tenant_landing_page():
 def tenant_screening_page():
     return render_template("tenant_screening.html")
 
-#login page route
-@app.route("/login")
-def login_page():
-    return render_template("login.html")
-
 #Tenant registration page route
 @app.route("/new_tenant")
 def tenant_registration():
     return render_template("new_tenant_info.html")
 
-
-
-
-@app.route("/home")
-@login_required
-def home():
-    print("Current user:", current_user)  # Print the current user for debugging purposes
-
-    if 'plot_id' in session:
-        print("Logged in as landlord. Plot ID:", session['plot_id'])
-        return render_template('login.html', user_type='landlord')
-    elif 'tenant_id' in session:
-        print("Logged in as tenant. Tenant ID:", session['tenant_id'])
-        return render_template('login.html', user_type='tenant')
-    else:
-        print("User is not properly authenticated. Redirecting to login page.")
-        return redirect('/login')
 
 @app.route("/about_us")
 def about_us():
