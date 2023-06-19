@@ -37,34 +37,15 @@ def load_user(user_id):
 @app.route("/")
 @app.route("/home")
 def turent_home():
+    """
+    Render the home page template.
+
+    Returns:
+        The rendered home page template.
+    """
     return render_template("Home.html")
 
-#landlord rating page route
-@app.route("/rate_landlord")
-def rate_landlord():
-    return render_template("rate_landlord.html")
 
-#tenant landing page route
-@app.route("/tenant_landing_page")
-def tenant_landing_page():
-    return render_template("tenant_landing_page.html")
-
-#tenant screening page route
-@app.route("/tenant_screening_page")
-def tenant_screening_page():
-    return render_template("tenant_screening.html")
-
-#login page route
-@app.route("/login")
-def login_page():
-    return render_template("login.html")
-
-#Tenant registration page route
-@app.route("/new_tenant")
-def tenant_registration():
-    return render_template("new_tenant_info.html")
-
- 
 @app.route('/register_plot', methods=['GET', 'POST'])
 def register_plot():
     """
@@ -110,6 +91,34 @@ def register_plot():
         return redirect(url_for('login_page'))
 
     return render_template('plot_registration.html')
+
+#landlord rating page route
+@app.route("/rate_landlord")
+def rate_landlord():
+    return render_template("rate_landlord.html")
+
+#tenant landing page route
+@app.route("/tenant_landing_page")
+def tenant_landing_page():
+    return render_template("tenant_landing_page.html")
+
+#tenant screening page route
+@app.route("/tenant_screening_page")
+def tenant_screening_page():
+    return render_template("tenant_screening.html")
+
+#login page route
+@app.route("/login")
+def login_page():
+    return render_template("login.html")
+
+#Tenant registration page route
+@app.route("/new_tenant")
+def tenant_registration():
+    return render_template("new_tenant_info.html")
+
+
+
 
 @app.route("/home")
 @login_required
