@@ -12,12 +12,13 @@
 input.login_email[type="email"],
 input.login_password[type="password"] {
     border: 1px solid #ccc;
+    width: 200px;
 }
 
 
 input.login_submit[type="submit"] {
     border-radius: 10px;
-    width: 140px;
+    width: 120px;
     margin-left: 22%;
     padding: 12px 20px;
     background-color: #FF9900;
