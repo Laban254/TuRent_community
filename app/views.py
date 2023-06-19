@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, session, flash, url_for
+from flask import render_template, request, redirect, session, flash, url_for, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -137,6 +137,29 @@ def logout():
     return redirect(url_for('turent_home'))
 
 
+@app.route('/landlord_landing_page', methods=['GET', 'POST'])
+@login_required
+def landlord_page():
+    # Retrieve the plot information from the database
+    plot = db_session.query(PlotInformation).first()
+
+    if request.method == 'POST':
+        # Update the plot information
+        plot.plot_number = request.form.get('plot_number')
+        plot.phone_number = request.form.get('phone_number')
+        plot.email = request.form.get('email')
+        plot.total_houses = request.form.get('number_of_houses')
+
+        # Commit the changes to the database
+        db_session.commit()
+
+        return redirect(url_for('landlord_page'))
+
+    if plot:
+        return render_template("landlord_landing_page.html", plot=plot)
+    else:
+        return render_template("landlord_landing_page.html")
+
 #landlord rating page route
 @app.route("/rate_landlord")
 def rate_landlord():
@@ -167,9 +190,7 @@ def house_information():
     return render_template("house_information_view.html")
 
 
-@app.route("/landlord_landing_page")
-def landlord_page():
-    return render_template("landlord_landing_page.html")
+
 
 @app.route("/house_registration")
 def house_registration():

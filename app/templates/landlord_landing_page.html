@@ -9,14 +9,18 @@
         <form action="" method="post">
             <h1>Plot Information</h1>
             <h3>Plot Number</h3>
-            <input type="text" name="plot_number" class="text_box" placeholder="CH0098re" disabled="disabled">
+            <input type="text" name="plot_number" class="text_box" value="{{ plot.plot_number }}" {% if editable %}disabled{% endif %}>
             <h3>Phone Number</h3>
-            <input type="text" name="phone_number" class="text_box" placeholder="0791995866" disabled="disabled">
+            <input type="text" name="phone_number" class="text_box" value="{{ plot.phone_number }}" {% if editable %}disabled{% endif %}>
             <h3>Email</h3>
-            <input type="text" name="email" class="text_box" placeholder="bravinatonya.brani@gmail.com" disabled="disabled">
+            <input type="text" name="email" class="text_box" value="{{ plot.email }}" {% if editable %}disabled{% endif %}>
             <h3>Number of Houses</h3>
-            <input type="text" name="number_of_houses" class="text_box" placeholder="45" disabled="disabled"><br>
-            <button type="submit" class="submit_button">Edit information</button>
+            <input type="text" name="number_of_houses" class="text_box" value="{{ plot.total_houses }}" {% if editable %}disabled{% endif %}><br>
+            {% if editable %}
+                <button type="submit" class="action_button">Save</button>
+            {% else %}
+                <button class="action_button" id="edit_button">Edit Information</button>
+            {% endif %}
         </form>
     </div>
     <div id="button_section">
@@ -28,4 +32,5 @@
         </div>
     </div>
 </div>
+<script src="{{ url_for('static', filename='js/edit_plot.js') }}"></script>
 {%endblock%}
