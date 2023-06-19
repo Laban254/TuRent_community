@@ -92,7 +92,8 @@ def register_plot():
         db_session.add(plot)
         db_session.commit()
 
-        return 'Plot registered successfully!'
+        flash('Plot added successfully!')
+        return redirect(url_for('login_page'))
 
     return render_template('plot_registration.html')
 
