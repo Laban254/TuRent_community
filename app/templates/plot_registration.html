@@ -1,34 +1,38 @@
-{%extends 'home_base.html'%}
+{% extends 'home_base.html' %}
 
-{%block content%}
-{% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class="flashes">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-{% endwith %}
-<form class="plot_info_form" action="{{ url_for('register_plot') }}">
+{% block content %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <form class="plot_info_form" action="{{ url_for('register_plot') }}" method="POST">
     <label for="plot">Plot Number</label>
-    <input type="text" id="plot"  class="plot_info_text" name="plot_number" required><br><br>
+    <input type="text" id="plot" class="plot_info_text" name="plot_number" required><br><br>
 
     <label for="phone">Phone Number</label>
     <input type="tel" id="phone" name="phone_number" class="plot_info_tel" pattern="[0-9]{10}" required><br><br>
 
     <label for="email">Email</label>
-    <input type="email" id="email" name="email"  class="plot_info_email" required><br><br>
+    <input type="email" id="email" name="email" class="plot_info_email" required><br><br>
 
     <label for="houses">Number of Houses</label>
-    <input type="number" id="houses"  class="plot_info_number" name="total_houses" min="1"  required><br><br>
+    <input type="number" id="houses" class="plot_info_number" name="total_houses" min="1" required><br><br>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" name="location" class="plot_info_text" required><br><br>
 
     <label for="password">Password</label>
     <input type="password" id="password" class="plot_info_password" name="password1" required><br><br>
 
     <label for="confirmPassword">Confirm Password</label>
-    <input type="password" id="confirmPassword" class="plot_info_password" name="confirmPassword" ><br><br>
-    <button  class="submit_button"  onclick="location.href='/landlord_landing_page'">Submit information</button><br>
-    <!-- <input type="submit" class="plot_info_submit" value="Submit Information" onclick="location.href='/landlord_landing_page'">-->
-</form>
-{%endblock%}
+    <input type="password" id="confirmPassword" class="plot_info_password" name="confirmPassword"><br><br>
+
+    <button class="submit_button" type="submit">Submit information</button><br>
+  </form>
+{% endblock %}
