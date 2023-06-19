@@ -23,5 +23,13 @@ input.login_submit[type="submit"] {
     padding: 12px 20px;
     background-color: #FF9900;
     color: white;
-    margin-top: 4px;
+    margin-top: 40px;
 } 
+.forget-password{
+    margin-top: 5px;
+    
+}
+.forget-password:hover{
+    color: coral;
+
+}
