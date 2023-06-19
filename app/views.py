@@ -64,10 +64,24 @@ def login_page():
 def tenant_registration():
     return render_template("new_tenant_info.html")
 
-    
-#registering the plot
+ 
 @app.route('/register_plot', methods=['GET', 'POST'])
 def register_plot():
+    """
+    Register a new plot based on the form data.
+
+    If the request method is POST, the function retrieves the plot information from the form,
+    checks if a plot with the given plot_number already exists, creates a new PlotInformation object,
+    adds it to the session, and commits the changes. Then it flashes a success message and redirects
+    the user to the login page.
+
+    If the request method is GET, the function renders the plot registration template.
+
+    Returns:
+        If the request method is POST and the plot is successfully registered, it redirects the user
+        to the login page.
+        If the request method is GET or the plot registration fails, it renders the plot registration template.
+    """
     if request.method == 'POST':
         # Get plot information from the form
         plot_number = request.form['plot_number']
