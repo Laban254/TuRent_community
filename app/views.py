@@ -142,7 +142,7 @@ def logout():
 @login_required
 def landlord_page():
     # Retrieve the plot information from the database
-    plot = db_session.query(PlotInformation).first()
+    plot = db_session.query(PlotInformation).filter_by(email=session.get('email')).first()
 
     if request.method == 'POST':
         # Update the plot information
