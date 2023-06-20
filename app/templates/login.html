@@ -17,19 +17,18 @@
     {% endif %}
     {% endwith %}
     <form class="login" method="POST" action="{{ url_for('login_page') }}">
-        <div class="login_logo">
+        
             <img src="././static/img/logo.png" alt="Avatar" class="logo">
-        </div>
-        <div>
-        <label for="email"><h3>Enter Email</h3></label><br>
+        
+        <label   for="email"><h3>Enter Email</h3</label><br>
         <input type="email" id="email" class="login_email text_box" name="email" required><br>
 
-        <label for="password"><h3>Password</h3></label><br>
+        <label  for="password"><h3>Password</h3></label><br>
         <input type="password" id="password"  class="login_password text_box" name="password" required><br>
-        <a class="forget-password" href="#"> Forget password</a>
-
-        <input type="submit" class="login_submit" value="Login">
-        </div>
+    
+        <input type="submit" class="login_submit" value="Login"><br/>
+        <a class="forget-password" href='/forgot_password'> Forget password</a>
+       
     </form>
 </body  
 

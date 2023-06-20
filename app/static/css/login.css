@@ -1,32 +1,36 @@
   form.login {
-    margin-top: 70px;
-    margin-left: 375px;
-    margin-right: 375px;
+    margin-top: 100px;
+    justify-content: center;
+    text-align: center;
+
+    
 }
 
-.login_logo {
-    text-align: center;
-    justify-content: center;
-}
+
+
+
 
 input.login_email[type="email"],
 input.login_password[type="password"] {
     border: 1px solid #ccc;
-    width: 200px;
+    width: 300px;
+    margin-bottom: 1px;
+    
 }
+
+
 
 
 input.login_submit[type="submit"] {
     border-radius: 10px;
-    width: 120px;
-    margin-left: 22%;
+    width: 150px;
     padding: 12px 20px;
     background-color: #FF9900;
     color: white;
-    margin-top: 40px;
+    margin-top: 10px;
 } 
 .forget-password{
-    margin-top: 5px;
+    margin-top: 2px;
     
 }
 .forget-password:hover{

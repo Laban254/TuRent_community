@@ -20,7 +20,7 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 # Create SQLite database engine and bind it to the session using a connection pool
-engine = create_engine('sqlite:///turent_community.db')
+engine = create_engine('sqlite:///turent_commun1.db')
 Session = scoped_session(sessionmaker(bind=engine))
 db_session = Session
 # Create the tables
@@ -99,6 +99,7 @@ def login_page():
         # Get login information from the form
         email = request.form['email']
         password = request.form['password']
+        session["email"] = email
 
         # Check if the login credentials belong to a landlord
         landlord = db_session.query(PlotInformation).filter_by(email=email).first()
@@ -159,6 +160,22 @@ def landlord_page():
         return render_template("landlord_landing_page.html", plot=plot)
     else:
         return render_template("landlord_landing_page.html")
+
+@app.route("/forgot_password", methods=['POST', 'GET'])
+def forgot_password():
+    user_email = session.get("email")
+    if request.method == 'POST':
+        landlord = db_session.query(PlotInformation).filter_by(email=user_email).first()
+        if landlord is not None and user_email == landlord.email:
+            landlord.password1 = request.form['password']
+            confirm_password = request.form['confirm_password']
+            
+            if landlord.password1 == confirm_password:
+                landlord.password1= generate_password_hash(landlord.password1)
+                db_session.commit()
+                return redirect(url_for("login_page"))
+    return render_template("forgot_password.html", email=user_email)
+
 
 #landlord rating page route
 @app.route("/rate_landlord")
