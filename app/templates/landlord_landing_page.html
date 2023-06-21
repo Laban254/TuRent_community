@@ -6,7 +6,7 @@
 {%block content%}
 <div class="content">
     <div id="plot_information">
-        <form action="" method="post">
+        <form action="{{url_for("update_landlord_info")}}" method="POST">
             <h1>Plot Information</h1>
             <h3>Plot Number</h3>
             <input type="text" name="plot_number" class="text_box" disabled="disabled" value="{{ plot.plot_number }}" >
@@ -16,11 +16,11 @@
             <input type="text" name="email" class="text_box" disabled="disabled" value="{{ plot.email }}" >
             <h3>Number of Houses</h3>
             <input type="text" name="number_of_houses" class="text_box" disabled="disabled" value="{{ plot.total_houses }}" ><br>
-            {% if editable %}
-                <button type="submit" class="action_button">Save</button>
-            {% else %}
-                <button class="action_button" id="edit_tenant-button">Edit Information</button>
-            {% endif %}
+            <div class="action_buttons">
+                <button type="submit" class="information_buttons" id="save_button" class="action_button">Save Information</button>
+                <input type="button" class="information_buttons button" class="action_button" id="edit_button" value="Edit Information"/>
+            </div>
+            
         </form>
     </div>
     <div id="button_section">
@@ -32,5 +32,5 @@
         </div>
     </div>
 </div>
-<script src="{{ url_for('static', filename='js/edit_plot.js') }}"></script>
+<script src="././static/scripts/edit_plot.js"></script>
 {%endblock%}
