@@ -11,17 +11,15 @@
     background-color: #F8991D;
 
 }
-#edit_information-button{
+#edit_information-button, #save_button{
     background-color: #6DC497;
 }
 #new_house-button{
     background-color: #1C3664;
 }
-#edit_tenant-button{
+#edit_tenant-button, .information_buttons{
     background-color: #1C3664;
     width: 150px;
-    margin-top: 2em;
-    margin-left: 40px;
 }
 #screent_tenant-button{
     background-color: white;
@@ -37,5 +35,16 @@ form{
     position: absolute;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
+}
+.action_buttons{
+    position:relative;
+    height: 5em;
+    width: 100%;
+}
+.information_buttons{
+    position: absolute;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
 }
