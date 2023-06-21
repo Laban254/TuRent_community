@@ -144,6 +144,14 @@ def landlord_page():
     # Retrieve the plot information from the database
     plot = db_session.query(PlotInformation).filter_by(email=session.get('email')).first()
 
+    if plot:
+        return render_template("landlord_landing_page.html", plot=plot)
+    else:
+        return render_template("landlord_landing_page.html")
+    
+@app.route("/update_landlord_info", methods=["POST"])
+def update_landlord_info():
+    plot = db_session.query(PlotInformation).filter_by(email=session.get('email')).first()
     if request.method == 'POST':
         # Update the plot information
         plot.plot_number = request.form.get('plot_number')
@@ -154,13 +162,8 @@ def landlord_page():
         # Commit the changes to the database
         db_session.commit()
 
-        return redirect(url_for('landlord_page'))
-
-    if plot:
         return render_template("landlord_landing_page.html", plot=plot)
-    else:
-        return render_template("landlord_landing_page.html")
-
+    
 @app.route("/forgot_password", methods=['POST', 'GET'])
 def forgot_password():
     user_email = session.get("email")
