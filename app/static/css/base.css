@@ -120,7 +120,7 @@ h3{
     top: 50%;
     transform: translate(-50%, -50%);
 }
-button{
+button, .button{
     width: 25em;
     height: 3.25em;
     padding: 2em, 0px;
