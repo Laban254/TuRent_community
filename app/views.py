@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, session, flash, url_for, j
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_required,  LoginManager, current_user, login_user
+from flask_login import login_required,  LoginManager, current_user, login_user, logout_user
 from app import app
 from .models import Base, PlotInformation, HouseInformation, TenantInformation, Reviews, LoginDetails, TenantLoginDetails
 
