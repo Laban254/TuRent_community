@@ -5,23 +5,32 @@
 {%endblock%}
 {%block content%} 
 <div id=content>
-    <form class="add_tenant_info">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flash-messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% endwith %}
+    <form class="add_tenant_info" method="POST" action="new_tenant">
         <div class="heading">
             <h1>New Tenant Information</h1>
         </div>
         
         <label for="first name"><h3>First Name</h3></label><br>
-        <input type="text" id="first_name" name="first name" class="text_box" required><br><br>
+        <input type="text" id="first_name" name="first_name" class="text_box" required><br><br>
         
         <label for="lastName"><h3>Last Name</h3></label><br>
-        <input type="text" id="last_name" name="last name" class="text_box" required><br><br>
+        <input type="text" id="last_name" name="last_name" class="text_box" required><br><br>
         
         <label for="email"><h3>Email</h3></label><br>
         <input type="text" id="email" name="email" class="text_box" required><br><br>
         
         
         <label for="phoneNumber"><h3>Phone Number</h3></label><br>
-        <input type="tel" id="phoneNumber" name="phoneNumber" class="text_box" required><br><br>
+        <input type="tel" id="phoneNumber" name="phone_Number" class="text_box" required><br><br>
 
     
         
