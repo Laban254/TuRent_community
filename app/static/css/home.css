@@ -4,7 +4,9 @@
   width: 16em;
 }
 
-
+.button{
+  text-align: center;
+}
 
 .container {
     display: grid;
