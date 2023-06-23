@@ -31,12 +31,10 @@ class PlotInformation(Base):
 class HouseInformation(Base):
     __tablename__ = 'house_information'
     id = Column(Integer, primary_key=True)
-    plot_id = Column(Integer, ForeignKey('plot_information.id'), nullable=False)
-    phone_number = Column(String(50), nullable=False)
     house_number = Column(String(50), nullable=False)
     rental_price = Column(Float, nullable=False)
     rooms_available = Column(Integer, nullable=False)
-    images_location = Column(String(100), nullable=False)
+    images_location = Column(String(100))
     description = Column(String(200), nullable=False)
 
 class TenantInformation(Base):
@@ -63,6 +61,7 @@ class LoginDetails(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String(50), nullable=False)
     password1 = Column(String(50), nullable=False)
+    User_Type = Column(Integer, nullable=False)
 
 class TenantLoginDetails(Base):
     __tablename__ = 'tenant_login_details'
