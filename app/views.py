@@ -1,14 +1,21 @@
-from flask import render_template, request, redirect, session, flash, url_for, jsonify
+from flask import render_template, request, redirect, session, flash, url_for, send_from_directory
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_required,  LoginManager, current_user, login_user, logout_user
 from app import app
 from .models import Base, PlotInformation, HouseInformation, TenantInformation, Reviews, LoginDetails, TenantLoginDetails
+import os
+from werkzeug.utils import secure_filename
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 # Set a secret key for session management
 app.secret_key = 'your_secret_key'
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 # Flask-Login initialization
@@ -20,7 +27,7 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 # Create SQLite database engine and bind it to the session using a connection pool
-engine = create_engine('sqlite:///turent_commun1.db')
+engine = create_engine('sqlite:///turent.db')
 Session = scoped_session(sessionmaker(bind=engine))
 db_session = Session
 # Create the tables
@@ -117,7 +124,7 @@ def login_page():
             session['tenant_id'] = tenant_login.tenant_id
             flash('Login successful as tenant!')
             login_user(tenant_login)  # Log in the tenant user
-            return redirect(url_for('home'))  # Redirect to the home page
+            return redirect(url_for('/tenant_landing_page'))  # Redirect to the home page
 
         flash('Invalid email or password!')
         return redirect('/login')
@@ -207,7 +214,7 @@ def tenant_registration():
         email = request.form.get("email")
         phone_number = request.form.get("phone_Number")
         #house id to be changed
-        house_id = 140
+        house_id = request.form.get("house_Number")
         house_info = db_session.query(TenantInformation).filter_by(house_id = house_id).first()
         if house_info:
             with app.test_request_context():
@@ -215,12 +222,13 @@ def tenant_registration():
             flash("You already have a tenant in that house")
             return redirect(url_for("tenant_registration"))
         else:
+            user_email = session.get("email")
+            landlord = db_session.query(PlotInformation).filter_by(email=user_email).first()
             new_tenant = TenantInformation(name = name, email = email, phone_number = phone_number, house_id = house_id )
             db_session.add(new_tenant)
             db_session.commit()
             
-            plot = session.get("plot")
-            return render_template("landlord_landing_page.html", plot=plot)
+            return render_template("landlord_landing_page.html", plot=landlord)
     else:
         return render_template("new_tenant_info.html")
 
@@ -236,13 +244,47 @@ def house_information():
 
 
 
-@app.route("/house_registration")
+@app.route("/house_registration", methods=["Get", "POST"])
 def house_registration():
-    return render_template("house_info.html")
+    user_email = session.get("email")
+    landlord = db_session.query(PlotInformation).filter_by(email=user_email).first()
+    if request.method == "POST":
+        house_number = request.form.get("house_number")
+        house_rent = request.form.get("house_rent")
+        number_of_bedrooms = request.form.get("no_of_bedrooms")
+        house_description = request.form.get("description")
+        house = HouseInformation(house_number=house_number, rental_price=house_rent, rooms_available=number_of_bedrooms, description=house_description)
+
+
+        db_session.add(house)
+        db_session.commit()
+        return render_template("landlord_landing_page.html", plot=landlord)
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('File successfully uploaded')
+            # Redirect to a success page or perform other logic
+            return render_template("landlord_landing_page.html", plot=landlord)
+        else:
+            flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
+            return render_template("landlord_landing_page.html", plot=landlord)
+    return render_template("house_info.html", plot=landlord)
 
 @app.route("/edit_tenant_info")
 def edit_tenant_info():
-    return render_template("tenants.html")
+    tenants_info = db_session.query(TenantInformation).all()
+    return render_template("tenants.html", tenants=tenants_info)
 
 @app.route("/landlord_screening")
 def landlord_screening():
