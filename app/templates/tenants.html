@@ -5,7 +5,6 @@
     <h1 class="header_tenants">Tenants Information</h1>
     <table>
         <tr>
-            <th></th>
             <th>House Number</th>
             <th>First Name</th>
             <th>Last Name</th>
@@ -14,13 +13,13 @@
             <th>Rating</th>
             <th></th>
         </tr>
+        {%for tenant in tenants %}
         <tr>
-            <td class="number-column">1</td>
-            <td><input type="text" id="houseNumber" class="tenant_text" name="houseNumber" placeholder="House number" required></td>
-            <td><input type="text" id="firstName" class="tenant_text" name="firstName" placeholder="First name"  required></td>
-            <td><input type="text" id="lastName"  class="tenant_text" name="lastName" placeholder="Last name" required></td>
-            <td><input type="email" id="email" class="tenant_email" name="email" placeholder="Email" required></td>
-            <td><input type="tel" id="phoneNumber" class="tenant_tel" name="phoneNumber"  placeholder="Phone number" required></td>
+            <td>{{tenant.house_id}}</td>
+            <td>{{tenant.name.split(' ')[0]}}</td>
+            <td>{{tenant.name.split(' ')[1]}}</td>
+            <td>{{tenant.email}}</td>
+            <td>{{tenant.phone_number}}</td>
             <td>
                 <div class="rating">
                     <input type="radio" id="star1" name="rating" value="" required>
@@ -37,6 +36,7 @@
             </td>
             <td class="edit-button_tenants"><button class="tenants_button">Edit Information</button></td>
         </tr>
+        {%endfor%}
     </table>
 </div>
 
