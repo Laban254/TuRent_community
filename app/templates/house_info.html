@@ -7,42 +7,30 @@
 <div class="container">
     <div class="row">
         <div class="column">
-            <form class="house_info" >
+            <form class="house_info" method="POST">
                 <div class="heading">
                     <h1>House Information</h1>
                 </div>
                 
                 <label for="Houseno">House Number</label><br>
-                <input type="number" id="house no" name="first name" required><br><br>
+                <input type="number" id="house no" name="house_number" required><br><br>
                 
                 <label for="house rent">House Rent</label><br>
-                <input type="number" id="house rent" name="house rent" required><br><br>
+                <input type="number" id="house rent" name="house_rent" required><br><br>
                 
                 <label for="no of bedrooms">Number of Bedrooms</label><br>
-                <input type="number" id="no of bedrooms" name="no of bedrooms" required><br><br>
+                <input type="number" id="no of bedrooms" name="no_of_bedrooms" required><br><br>
                 
                 
                 <label for="description"> Description</label><br>
                 <input type="text" id="description" name="description" required><br><br>
+
+                <input type="file" name="file">
+                <input type="submit" value="Add House" class="button">
           </form> 
 
         </div>
         
-    </div>
-    <div class="row">
-        <div class="column">
-            <div> 
-                <div class="dropzone" id="dropzone">
-                    <span class="dropzone-text">Drag and drop an image here</span>
-                </div>
-
-            </div>
-           
-            <input type="submit" value="Submit Information">
-
-
-        </div>
-
     </div>
    
 </div>
