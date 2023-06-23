@@ -1,16 +1,6 @@
 {% extends 'home_base.html' %}
 
-{% block content %}
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="flashes">
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
-
+{%block content%}
   <form class="plot_info_form" action="{{ url_for('register_plot') }}" method="POST">
     <label for="plot">Plot Number</label>
     <input type="text" id="plot" class="plot_info_text" name="plot_number" required><br><br>
